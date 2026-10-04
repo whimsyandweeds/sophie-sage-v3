@@ -335,6 +335,33 @@
       display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
       font-family: Inter, sans-serif;
     }
+
+    .cart {
+      position: fixed; left: 22px; bottom: 22px; z-index: 30;
+      font-family: Inter, sans-serif;
+    }
+    .cart-btn {
+      width: 64px; height: 64px; border-radius: 50%;
+      border: 2px solid #c9b6e4; background: #fff; color: #1c1b19;
+      font-family: Inter, sans-serif; font-size: 13px; font-weight: 500;
+      cursor: pointer; box-shadow: 0 10px 24px rgba(60, 40, 30, 0.08);
+    }
+    .cart-panel {
+      position: absolute; left: 0; bottom: 76px;
+      width: min(320px, calc(100vw - 32px));
+      background: rgba(255, 252, 248, 0.96);
+      border: 1px solid #c9b6e4; border-radius: 18px; padding: 14px;
+      box-shadow: 0 18px 40px rgba(60, 40, 30, 0.12);
+    }
+    .cart-panel[hidden] { display: none; }
+    .cart-panel p { margin: 0 0 10px; font-size: 13px; line-height: 1.4; color: #3c3935; }
+    .cart-item { padding: 10px 0; border-top: 1px solid rgba(28, 27, 25, 0.08); }
+    .cart-item strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .cart-item a {
+      display: inline-block; margin-right: 8px; margin-top: 2px;
+      border: 1px solid #c9b6e4; border-radius: 999px; padding: 6px 10px;
+      font-size: 12px; color: #1c1b19; background: #fff;
+    }
     .desk-btn {
       width: 64px; height: 64px; border-radius: 50%;
       border: 2px solid #6d6188; background: #fff; color: #1c1b19;
@@ -624,6 +651,28 @@
     </section>
   </main>
 
+  <div class="cart">
+    <div class="cart-panel" id="cart-panel" hidden>
+      <p>Free sheets. Download the file, or open it and screenshot the page.</p>
+      <div class="cart-item">
+        <strong>What the flat-fee covers</strong>
+        <a href="pdfs/flat-fee.pdf" download>Download</a>
+        <a href="pdfs/flat-fee.pdf" target="_blank" rel="noopener">Open</a>
+      </div>
+      <div class="cart-item">
+        <strong>Partner referral sheet</strong>
+        <a href="pdfs/partner-referral.pdf" download>Download</a>
+        <a href="pdfs/partner-referral.pdf" target="_blank" rel="noopener">Open</a>
+      </div>
+      <div class="cart-item">
+        <strong>How the exit works</strong>
+        <a href="pdfs/how-exit-works.pdf" download>Download</a>
+        <a href="pdfs/how-exit-works.pdf" target="_blank" rel="noopener">Open</a>
+      </div>
+    </div>
+    <button class="cart-btn" id="cart-btn" type="button" aria-expanded="false" aria-controls="cart-panel">Cart</button>
+  </div>
+
   <div class="desk">
     <div class="desk-panel" id="desk-panel" hidden>
       <div data-view="home">
@@ -746,6 +795,13 @@
   </div>
 
   <script>
+
+    const cartBtn = document.getElementById("cart-btn");
+    const cartPanel = document.getElementById("cart-panel");
+    cartBtn.addEventListener("click", () => {
+      cartPanel.hidden = !cartPanel.hidden;
+      cartBtn.setAttribute("aria-expanded", cartPanel.hidden ? "false" : "true");
+    });
     const panel = document.getElementById("desk-panel");
     const deskBtn = document.getElementById("desk-btn");
     const views = panel.querySelectorAll("[data-view]");
