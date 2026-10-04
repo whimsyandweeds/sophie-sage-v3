@@ -349,9 +349,25 @@
     }
     .menu-panel {
       position: absolute; right: 0; top: 62px;
-      width: 220px; background: rgba(255, 252, 248, 0.96);
+      width: min(320px, calc(100vw - 32px));
+      max-height: min(70vh, 520px); overflow: auto;
+      background: rgba(255, 252, 248, 0.96);
       border: 1px solid #c9b6e4; border-radius: 16px; padding: 8px;
       box-shadow: 0 18px 40px rgba(60, 40, 30, 0.12);
+    }
+    .menu-label { margin: 10px 12px 4px; font-size: 11px; letter-spacing: 0.12em; color: #8a847c; }
+    .nudge {
+      position: fixed; top: 86px; right: 22px; z-index: 28;
+      width: min(260px, calc(100vw - 32px));
+      background: #fff; border: 1.5px solid #c9b6e4; border-radius: 16px;
+      padding: 14px; box-shadow: 0 16px 36px rgba(60, 40, 30, 0.12);
+      font-family: Inter, sans-serif;
+    }
+    .nudge[hidden] { display: none; }
+    .nudge p { margin: 0 0 10px; font-size: 14px; line-height: 1.4; }
+    .nudge button {
+      border: 1px solid #c9b6e4; background: #fff; border-radius: 999px;
+      padding: 7px 12px; font-family: Inter, sans-serif; font-size: 13px; cursor: pointer;
     }
     .menu-panel[hidden] { display: none; }
     .menu-panel a {
@@ -486,63 +502,60 @@
         <a href="#pricing">Pricing</a>
         <a href="#how">How it works</a>
         <a href="#refer">Refer</a>
+        <p class="menu-label">FREE SHEETS</p>
+        <div class="cart-item">
+          <strong>Expose the Playbook</strong>
+          <a href="sheets/expose-the-playbook.webp?v=3" download>Download</a>
+          <a href="sheets/expose-the-playbook.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>Flying Monkeys and Triangulation</strong>
+          <a href="sheets/flying-monkeys.webp?v=3" download>Download</a>
+          <a href="sheets/flying-monkeys.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>Gaslighting Tactics</strong>
+          <a href="sheets/gaslighting-tactics.webp?v=3" download>Download</a>
+          <a href="sheets/gaslighting-tactics.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>Red Flags Checklist</strong>
+          <a href="sheets/red-flags-checklist.webp?v=3" download>Download</a>
+          <a href="sheets/red-flags-checklist.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>Digital Abuse Log</strong>
+          <a href="sheets/digital-abuse-log.webp?v=3" download>Download</a>
+          <a href="sheets/digital-abuse-log.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>The Hoover Cycle</strong>
+          <a href="sheets/hoover-cycle.webp?v=3" download>Download</a>
+          <a href="sheets/hoover-cycle.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>What Healing Really Looks Like</strong>
+          <a href="sheets/what-healing-looks-like.webp?v=3" download>Download</a>
+          <a href="sheets/what-healing-looks-like.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>Who Gets Targeted, and Why</strong>
+          <a href="sheets/who-gets-targeted.webp?v=3" download>Download</a>
+          <a href="sheets/who-gets-targeted.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>The Playbook Is Already Written</strong>
+          <a href="sheets/the-playbook.webp?v=3" download>Download</a>
+          <a href="sheets/the-playbook.webp?v=3" target="_blank" rel="noopener">Open</a>
+        </div>
       </div>
     </div>
   </header>
 
-  <div class="cart">
-    <div class="cart-panel" id="cart-panel" hidden>
-      <p>Free sheets. Download the file, or open it and screenshot the page.</p>
-      <div class="cart-item">
-        <strong>Expose the Playbook</strong>
-        <a href="sheets/expose-the-playbook.webp?v=3" download>Download</a>
-        <a href="sheets/expose-the-playbook.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>Flying Monkeys and Triangulation</strong>
-        <a href="sheets/flying-monkeys.webp?v=3" download>Download</a>
-        <a href="sheets/flying-monkeys.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>Gaslighting Tactics</strong>
-        <a href="sheets/gaslighting-tactics.webp?v=3" download>Download</a>
-        <a href="sheets/gaslighting-tactics.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>Red Flags Checklist</strong>
-        <a href="sheets/red-flags-checklist.webp?v=3" download>Download</a>
-        <a href="sheets/red-flags-checklist.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>Digital Abuse Log</strong>
-        <a href="sheets/digital-abuse-log.webp?v=3" download>Download</a>
-        <a href="sheets/digital-abuse-log.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>The Hoover Cycle</strong>
-        <a href="sheets/hoover-cycle.webp?v=3" download>Download</a>
-        <a href="sheets/hoover-cycle.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>What Healing Really Looks Like</strong>
-        <a href="sheets/what-healing-looks-like.webp?v=3" download>Download</a>
-        <a href="sheets/what-healing-looks-like.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>Who Gets Targeted, and Why</strong>
-        <a href="sheets/who-gets-targeted.webp?v=3" download>Download</a>
-        <a href="sheets/who-gets-targeted.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>The Playbook Is Already Written</strong>
-        <a href="sheets/the-playbook.webp?v=3" download>Download</a>
-        <a href="sheets/the-playbook.webp?v=3" target="_blank" rel="noopener">Open</a>
-      </div>
-    </div>
-    <button class="cart-btn" id="cart-btn" type="button" aria-expanded="false" aria-controls="cart-panel" aria-label="Free sheets">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M7 3.5h7.2L19 8.2V20.5H7z"/><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M14 3.8V8.4h4.4"/><path fill="#efe6f6" stroke="#6d6188" stroke-width="1.2" d="M8.2 13.2h7.6v5.2H8.2z"/><text x="12" y="16.8" text-anchor="middle" font-size="3.2" font-family="Inter, sans-serif" fill="#6d6188">FREE</text></svg>
-      FREE
-    </button>
+  <div class="nudge" id="nudge">
+    <p>Free sheets are in the menu.</p>
+    <button type="button" id="nudge-open">Open</button>
+    <button type="button" id="nudge-close">Not now</button>
   </div>
 
   <main>
@@ -869,14 +882,17 @@
       menuPanel.hidden = !menuPanel.hidden;
       menuBtn.setAttribute("aria-expanded", menuPanel.hidden ? "false" : "true");
     });
-    menuPanel.querySelectorAll("a").forEach((link) => {
+    menuPanel.querySelectorAll("a[href^='#']").forEach((link) => {
       link.addEventListener("click", () => { menuPanel.hidden = true; menuBtn.setAttribute("aria-expanded", "false"); });
     });
-    const cartBtn = document.getElementById("cart-btn");
-    const cartPanel = document.getElementById("cart-panel");
-    cartBtn.addEventListener("click", () => {
-      cartPanel.hidden = !cartPanel.hidden;
-      cartBtn.setAttribute("aria-expanded", cartPanel.hidden ? "false" : "true");
+    const nudge = document.getElementById("nudge");
+    function hideNudge() { nudge.hidden = true; sessionStorage.setItem("sage-nudge", "1"); }
+    if (sessionStorage.getItem("sage-nudge")) nudge.hidden = true;
+    document.getElementById("nudge-close").addEventListener("click", hideNudge);
+    document.getElementById("nudge-open").addEventListener("click", () => {
+      hideNudge();
+      menuPanel.hidden = false;
+      menuBtn.setAttribute("aria-expanded", "true");
     });
     const panel = document.getElementById("desk-panel");
     const deskBtn = document.getElementById("desk-btn");
