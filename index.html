@@ -375,6 +375,23 @@
       color: #1c1b19; font-size: 14px;
     }
     .menu-panel a:hover { background: #efe6f6; }
+    .sheets-toggle {
+      width: 100%; margin-top: 8px; text-align: left;
+      border: 1px solid #c9b6e4; background: #f4eef8; color: #1c1b19;
+      border-radius: 12px; padding: 10px 12px;
+      font-family: Inter, sans-serif; font-size: 14px; cursor: pointer;
+    }
+    .sheets {
+      margin-top: 8px; padding: 4px 10px 8px;
+      background: #f7f3fb; border: 1px solid #e4d6f3; border-radius: 12px;
+    }
+    .sheets[hidden] { display: none; }
+    .cart-item a {
+      display: inline-block; margin-right: 8px; margin-top: 2px;
+      border: 1px solid #c9b6e4; border-radius: 999px; padding: 6px 10px;
+      font-size: 12px; color: #1c1b19; background: #fff;
+    }
+    .menu-panel .cart-item a { display: inline-block; padding: 6px 10px; }
     .cart {
       position: fixed; left: 22px; bottom: 22px; z-index: 30;
       display: flex; flex-direction: column; align-items: flex-start;
@@ -403,10 +420,6 @@
     .cart-item.warn { border-top-color: rgba(160, 74, 74, 0.28); }
     .cart-item.warn strong { color: #8d4a4a; }
     .cart-item.warn a { border-color: #c9a3a3; color: #7a3e3e; }
-      display: inline-block; margin-right: 8px; margin-top: 2px;
-      border: 1px solid #c9b6e4; border-radius: 999px; padding: 6px 10px;
-      font-size: 12px; color: #1c1b19; background: #fff;
-    }
     .desk-btn {
       width: 64px; height: 64px; border-radius: 50%;
       border: 2px solid #6d6188; background: #fff; color: #1c1b19;
@@ -504,7 +517,8 @@
         <a href="#pricing">Pricing</a>
         <a href="#how">How it works</a>
         <a href="#refer">Refer</a>
-        <p class="menu-label">FREE SHEETS</p>
+        <button class="sheets-toggle" id="sheets-toggle" type="button" aria-expanded="false" aria-controls="sheets">Free Information</button>
+        <div class="sheets" id="sheets" hidden>
         <div class="cart-item">
           <strong>Expose the Playbook</strong>
           <a href="sheets/expose-the-playbook.webp?v=3" download>Download</a>
@@ -555,13 +569,14 @@
           <a href="pdfs/edgy-version.pdf" download>Download</a>
           <a href="pdfs/edgy-version.pdf" target="_blank" rel="noopener">Open</a>
         </div>
+        </div>
       </div>
     </div>
   </header>
 
   <div class="nudge" id="nudge">
     <img src="ss-mark.png" alt="" />
-    <p>Free sheets are in the menu.</p>
+    <p>Free Information is in the menu.</p>
     <button type="button" id="nudge-open">Open</button>
     <button type="button" id="nudge-close">Not now</button>
   </div>
@@ -901,6 +916,14 @@
       hideNudge();
       menuPanel.hidden = false;
       menuBtn.setAttribute("aria-expanded", "true");
+      sheets.hidden = false;
+      sheetsToggle.setAttribute("aria-expanded", "true");
+    });
+    const sheets = document.getElementById("sheets");
+    const sheetsToggle = document.getElementById("sheets-toggle");
+    sheetsToggle.addEventListener("click", () => {
+      sheets.hidden = !sheets.hidden;
+      sheetsToggle.setAttribute("aria-expanded", sheets.hidden ? "false" : "true");
     });
     const panel = document.getElementById("desk-panel");
     const deskBtn = document.getElementById("desk-btn");
