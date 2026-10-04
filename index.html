@@ -23,7 +23,11 @@
       --sans: "Outfit", "Avenir Next", sans-serif;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      scroll-padding-top: 8px;
+    }
     body {
       margin: 0;
       color: var(--ink);
@@ -185,7 +189,16 @@
       font-size: 13.5px; box-shadow: 0 10px 24px rgba(80, 60, 20, 0.08);
     }
 
-    section { padding: 28px 0 70px; }
+    .page {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      align-items: center;
+      padding: 72px 0 36px;
+    }
+    .page > .wrap { width: min(1120px, calc(100% - 40px)); }
+    section { padding: 0; }
     .label {
       display: inline-block;
       background: #f4efe4;
@@ -381,7 +394,8 @@
     </div>
   </header>
 
-  <main id="top">
+  <main>
+    <section class="page" id="top">
     <div class="wrap hero">
       <div>
         <div class="kicker">
@@ -434,8 +448,9 @@
         <div class="float-pill">flat-fee only :) no retainers</div>
       </aside>
     </div>
+    </section>
 
-    <section id="reality">
+    <section class="page" id="reality">
       <div class="wrap">
         <span class="label">02 · THE REALITY</span>
         <h2>The clarity is here, the housing is next.</h2>
@@ -469,7 +484,7 @@
       </div>
     </section>
 
-    <section id="pricing">
+    <section class="page" id="pricing">
       <div class="wrap">
         <div class="price-head">
           <div>
@@ -509,7 +524,7 @@
       </div>
     </section>
 
-    <section id="how">
+    <section class="page" id="how">
       <div class="wrap">
         <div class="panel">
           <div>
@@ -545,7 +560,7 @@
       </div>
     </section>
 
-    <section id="refer">
+    <section class="page" id="refer">
       <div class="wrap">
         <div class="close">
           <div>
