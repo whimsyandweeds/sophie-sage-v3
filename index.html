@@ -46,12 +46,13 @@
       top: 0;
       z-index: 20;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
       padding: 18px 28px 14px;
       background: transparent;
     }
+    .brand-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
     .brand { display: flex; align-items: center; gap: 10px; letter-spacing: 0.14em; font-size: 13px; font-weight: 500; }
     .mark {
       width: 36px; height: 36px;
@@ -337,7 +338,7 @@
     }
 
     .cart {
-      position: fixed; top: 78px; right: 22px; z-index: 30;
+      position: relative;
       display: flex; flex-direction: column; align-items: flex-end;
       font-family: Inter, sans-serif;
     }
@@ -407,7 +408,6 @@
 
     @media (max-width: 900px) {
       header { padding: 14px 16px; flex-wrap: wrap; }
-      .cart { top: 108px; right: 14px; }
       .pills { display: flex; gap: 6px; }
       .pill { font-size: 9px; padding: 6px 10px; }
       .hero, .zones, .tiers, .panel, .close, .price-head { grid-template-columns: 1fr; display: grid; }
@@ -453,10 +453,33 @@
 </head>
 <body>
   <header>
-    <a class="brand" href="#top"><img class="mark" src="ss-mark.png" alt="" /> SOPHIE + SAGE</a>
-    <div class="pills">
+    <div class="brand-stack">
+      <a class="brand" href="#top"><img class="mark" src="ss-mark.png" alt="" /> SOPHIE + SAGE</a>
       <span class="pill">FOUNDER-LED · SURVIVOR-LED</span>
-      <span class="pill">ZERO-FOOTPRINT · FLAT-FEE · NO RETAINERS</span>
+    </div>
+    <div class="cart">
+      <button class="cart-btn" id="cart-btn" type="button" aria-expanded="false" aria-controls="cart-panel" aria-label="Free sheets">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M7 3.5h7.2L19 8.2V20.5H7z"/><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M14 3.8V8.4h4.4"/><path fill="#efe6f6" stroke="#6d6188" stroke-width="1.2" d="M8.2 13.2h7.6v5.2H8.2z"/><text x="12" y="16.8" text-anchor="middle" font-size="3.2" font-family="Inter, sans-serif" fill="#6d6188">FREE</text></svg>
+        FREE
+      </button>
+      <div class="cart-panel" id="cart-panel" hidden>
+        <p>Free sheets. Download the file, or open it and screenshot the page.</p>
+        <div class="cart-item">
+          <strong>Free · What the flat-fee covers</strong>
+          <a href="pdfs/flat-fee.pdf" download>Download</a>
+          <a href="pdfs/flat-fee.pdf" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>Free · Partner referral sheet</strong>
+          <a href="pdfs/partner-referral.pdf" download>Download</a>
+          <a href="pdfs/partner-referral.pdf" target="_blank" rel="noopener">Open</a>
+        </div>
+        <div class="cart-item">
+          <strong>Free · How the exit works</strong>
+          <a href="pdfs/how-exit-works.pdf" download>Download</a>
+          <a href="pdfs/how-exit-works.pdf" target="_blank" rel="noopener">Open</a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -654,31 +677,6 @@
       </div>
     </section>
   </main>
-
-  <div class="cart">
-    <div class="cart-panel" id="cart-panel" hidden>
-      <p>Free sheets. Download the file, or open it and screenshot the page.</p>
-      <div class="cart-item">
-        <strong>Free · What the flat-fee covers</strong>
-        <a href="pdfs/flat-fee.pdf" download>Download</a>
-        <a href="pdfs/flat-fee.pdf" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>Free · Partner referral sheet</strong>
-        <a href="pdfs/partner-referral.pdf" download>Download</a>
-        <a href="pdfs/partner-referral.pdf" target="_blank" rel="noopener">Open</a>
-      </div>
-      <div class="cart-item">
-        <strong>Free · How the exit works</strong>
-        <a href="pdfs/how-exit-works.pdf" download>Download</a>
-        <a href="pdfs/how-exit-works.pdf" target="_blank" rel="noopener">Open</a>
-      </div>
-    </div>
-    <button class="cart-btn" id="cart-btn" type="button" aria-expanded="false" aria-controls="cart-panel" aria-label="Free sheets">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M7 3.5h7.2L19 8.2V20.5H7z"/><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M14 3.8V8.4h4.4"/><path fill="#efe6f6" stroke="#6d6188" stroke-width="1.2" d="M8.2 13.2h7.6v5.2H8.2z"/><text x="12" y="16.8" text-anchor="middle" font-size="3.2" font-family="Inter, sans-serif" fill="#6d6188">FREE</text></svg>
-      FREE
-    </button>
-  </div>
 
   <div class="desk">
     <div class="desk-panel" id="desk-panel" hidden>
