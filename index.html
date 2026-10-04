@@ -383,7 +383,18 @@
       h1 { font-size: 46px; }
       .panel, .close { padding: 22px 16px; }
     }
-  </style>
+  
+    .zone, .tier, .mini, .step, .panel, .zero {
+      border: 1px solid #c4b4d4;
+      transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s ease, border-color .18s ease;
+    }
+    .zone.b, .lilac, .tier.light { border-color: #9b84b8; }
+    .zone:hover, .tier:hover, .mini:hover, .step:hover, .panel:hover, .zero:hover {
+      transform: translateY(-4px);
+      border-color: #8d74ad;
+      box-shadow: 0 10px 24px rgba(80,60,100,.10);
+    }
+</style>
 </head>
 <body>
   <header>
