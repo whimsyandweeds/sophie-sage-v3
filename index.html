@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sophie + Sage — Logistics Exit Concierge</title>
+  <meta name="description" content="Referral-only logistics exit concierge for coaches, family-law attorneys, and housing advocates. Flat-fee. Zero footprint. No retainers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,560;0,9..144,620;1,9..144,460;1,9..144,520&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231c1b19'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-size='14' fill='white' font-family='Georgia'%3ES%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --ink: #1c1b19;
+      --ink-soft: #5e5a55;
+      --muted: #8a847c;
+      --purple: #6d6188;
+      --sage: #b7c4a6;
+      --line: rgba(28, 27, 25, 0.08);
+      --card: rgba(255, 252, 248, 0.92);
+      --shadow: 0 24px 60px rgba(70, 58, 48, 0.08);
+      --serif: "Fraunces", "Iowan Old Style", Palatino, serif;
+      --sans: "Outfit", "Avenir Next", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      background: #f4f0ea url("desk.png") center top / cover no-repeat fixed;
+      min-height: 100vh;
+    }
+    img { max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 28px 14px;
+      background: linear-gradient(180deg, rgba(246, 242, 236, 0.92), rgba(246, 242, 236, 0.72) 70%, rgba(246, 242, 236, 0));
+      backdrop-filter: blur(8px);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; letter-spacing: 0.14em; font-size: 13px; font-weight: 500; }
+    .mark {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #1c1b19; color: #fff;
+      display: grid; place-items: center;
+      font-family: var(--serif); font-weight: 560; letter-spacing: 0;
+    }
+    .pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .pill {
+      border: 0;
+      background: #ece6f3;
+      color: #3f3a44;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    .hero { padding: 28px 0 72px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 28px; align-items: start; }
+    .kicker { display: flex; align-items: center; gap: 10px; margin: 18px 0 22px; }
+    .tag {
+      background: #e7dff0;
+      color: #4c4458;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .eyebrow { font-size: 12px; letter-spacing: 0.16em; color: #6d675f; font-weight: 500; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #8ea57a; display: inline-block; }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 560;
+      font-size: clamp(52px, 6vw, 78px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin: 0 0 22px;
+    }
+    h1 .line { display: block; }
+    h1 .under {
+      background-image: linear-gradient(#c5d3b4, #c5d3b4);
+      background-repeat: no-repeat;
+      background-size: 100% 7px;
+      background-position: 0 86%;
+    }
+    .italic {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 460;
+      color: var(--purple);
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1.15;
+      margin: 0 0 22px;
+      max-width: 520px;
+    }
+    .lede { max-width: 520px; color: #3c3935; font-size: 16.5px; line-height: 1.55; margin: 0 0 28px; }
+    .lede em { font-family: var(--serif); font-style: italic; font-weight: 500; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .btn {
+      border: 0; cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-dark { background: #1c1b19; color: #fff; }
+    .btn-light { background: #fff; color: var(--ink); box-shadow: 0 8px 24px rgba(60, 40, 30, 0.06); }
+    .btn-light:hover, .btn-dark:hover { transform: translateY(-1px); }
+    .trust { display: flex; align-items: center; gap: 10px; color: #6e6963; font-size: 13.5px; }
+    .faces { display: flex; }
+    .faces span {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid #f6f1ea;
+      margin-left: -8px;
+      display: grid; place-items: center;
+      font-size: 12px; background: #efeae3;
+    }
+    .faces span:first-child { margin-left: 0; background: #f3eee6; }
+    .faces span:nth-child(2) { background: #e7efe4; }
+    .faces span:nth-child(3) { background: #ece4f4; }
+
+    .partner {
+      position: relative;
+      margin-top: 36px;
+      background: rgba(255, 252, 249, 0.94);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 22px 18px 18px;
+    }
+    .partner-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding: 0 6px; }
+    .micro { font-size: 11px; letter-spacing: 0.14em; color: #8d877f; }
+    .est { background: #f3eee6; border-radius: 999px; padding: 6px 10px; font-size: 11px; letter-spacing: 0.06em; color: #6d675f; }
+    .leaf {
+      position: absolute; top: -16px; right: -10px;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: #fff; box-shadow: 0 8px 20px rgba(60,40,30,0.08);
+      display: grid; place-items: center;
+    }
+    .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .mini {
+      border-radius: 18px; padding: 16px 14px 14px; min-height: 168px;
+    }
+    .mini h3 { margin: 10px 0 6px; font-size: 16px; font-weight: 560; letter-spacing: -0.02em; }
+    .mini p, .zero p { margin: 0; color: #5c574f; font-size: 13.5px; line-height: 1.45; }
+    .sage { background: #e7f0e3; }
+    .lilac { background: #efe6f6; }
+    .zero {
+      margin-top: 10px;
+      background: #fbf7f1;
+      border: 1.5px dashed #e4ddd3;
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+    }
+    .zero h3 { margin: 0 0 4px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+    .s-badge {
+      width: 22px; height: 22px; border-radius: 50%; background: #1c1b19; color: #fff;
+      display: inline-grid; place-items: center; font-size: 11px; font-family: var(--serif);
+    }
+    .studio { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 0 4px; color: #6a655e; font-size: 13px; }
+    .chip-dark {
+      background: #1c1b19; color: #fff; border-radius: 999px; padding: 8px 12px;
+      font-size: 11px; letter-spacing: 0.08em;
+    }
+    .float-pill {
+      position: absolute; left: -18px; bottom: 54px;
+      background: #f6e7c4; color: #3f392e;
+      border-radius: 999px; padding: 10px 14px;
+      font-size: 13.5px; box-shadow: 0 10px 24px rgba(80, 60, 20, 0.08);
+    }
+
+    section { padding: 28px 0 70px; }
+    .label {
+      display: inline-block;
+      background: #f4efe4;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: #6a645c;
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-weight: 560;
+      font-size: clamp(40px, 5vw, 60px);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      margin: 0 0 16px;
+      max-width: 640px;
+    }
+    .sub { max-width: 560px; color: #4a463f; line-height: 1.55; margin: 0 0 28px; }
+
+    .zones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .zone {
+      background: rgba(255,252,248,0.9);
+      border-radius: 26px;
+      padding: 18px 18px 22px;
+      box-shadow: var(--shadow);
+      min-height: 280px;
+    }
+    .zone.b { background: rgba(239, 230, 246, 0.92); }
+    .zone.c { background: rgba(231, 240, 227, 0.92); }
+    .zone-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .icon-bubble {
+      width: 36px; height: 36px; border-radius: 50%; background: #fff;
+      display: grid; place-items: center; box-shadow: 0 4px 12px rgba(60,40,30,0.05);
+    }
+    .zone-tag { font-size: 10px; letter-spacing: 0.1em; background: #fff; border-radius: 999px; padding: 6px 8px; color: #6d675f; }
+    .num { color: #b0aaa2; font-size: 13px; margin-right: 6px; }
+    .zone h3 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.03em; font-weight: 560; }
+    .zone p { margin: 0; color: #514c46; line-height: 1.5; font-size: 15px; }
+
+    .price-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; }
+    .price-note { max-width: 280px; color: #6a655e; font-size: 14.5px; line-height: 1.5; margin: 0 0 18px; }
+    .tiers { display: grid; grid-template-columns: 1fr 1.05fr; gap: 16px; align-items: stretch; }
+    .tier {
+      border-radius: 28px;
+      padding: 26px 26px 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .tier.light { background: rgba(255,252,248,0.94); }
+    .tier.dark { background: #1e1c1a; color: #f7f3ee; }
+    .tier .who { font-size: 12px; letter-spacing: 0.12em; color: #8a847c; }
+    .tier.dark .who { color: #b7b1a8; }
+    .tier h3 { font-family: var(--serif); font-size: 32px; margin: 10px 0 6px; font-weight: 560; letter-spacing: -0.03em; }
+    .price { font-family: var(--serif); font-size: 48px; letter-spacing: -0.03em; }
+    .price span { font-family: var(--sans); font-size: 14px; letter-spacing: 0; margin-left: 6px; color: #8a847c; }
+    .tier.dark .price span { color: #c8c2ba; }
+    ul.checks { list-style: none; padding: 8px 0 0; margin: 12px 0 18px; }
+    ul.checks li { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0; font-size: 15px; line-height: 1.4; }
+    .check {
+      width: 18px; height: 18px; border-radius: 50%; flex: none; margin-top: 1px;
+      display: grid; place-items: center; background: #e7f0e3; color: #5d7a52; font-size: 11px;
+    }
+    .tier.dark .check { background: #2c2a27; color: #d9d3cb; }
+    .note {
+      border-radius: 16px; padding: 12px 14px; font-size: 13.5px; line-height: 1.45; color: #6a645c;
+      background: #f7f3ee; border: 1px dashed #e6dfd6;
+    }
+    .tier.dark .note { background: #2a2725; color: #d9d3cb; border: 0; }
+    .most {
+      position: absolute; top: 22px; right: 22px;
+      background: #e5daf2; color: #3d3648; border-radius: 999px;
+      font-size: 11px; letter-spacing: 0.06em; padding: 6px 10px;
+    }
+    .wide {
+      margin-top: 18px; width: 100%; justify-content: center;
+      background: #fff; color: #1c1b19; border-radius: 999px; padding: 14px;
+    }
+
+    .panel {
+      background: rgba(255,252,248,0.94);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 36px 32px;
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 28px;
+    }
+    .steps { display: flex; flex-direction: column; gap: 10px; }
+    .step {
+      display: grid; grid-template-columns: 46px 1fr auto; gap: 12px; align-items: center;
+      border-radius: 18px; padding: 12px 14px;
+    }
+    .step strong { display: block; font-size: 16px; }
+    .step p { margin: 2px 0 0; color: #5c574f; font-size: 13.5px; line-height: 1.4; }
+    .step .n { font-size: 12px; color: #8a847c; margin-right: 6px; }
+    .s1 { background: #fbf7f1; }
+    .s2 { background: #efe6f6; }
+    .s3 { background: #e7f0e3; }
+    .s4 { background: #f8ecd4; }
+    .path { margin-top: 54px; color: #8a847c; letter-spacing: 0.14em; font-size: 12px; }
+    .dash { height: 28px; border-bottom: 1.5px dashed #ddd4cc; width: 140px; margin-bottom: 8px; }
+
+    .close {
+      background: linear-gradient(180deg, rgba(232, 240, 228, 0.92), rgba(236, 242, 232, 0.88));
+      border-radius: 32px;
+      padding: 36px 34px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+    .promise {
+      background: rgba(255,252,248,0.94);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+    }
+    .promise .micro { margin-bottom: 8px; display: block; }
+    .promise p { margin: 0 0 14px; color: #4e4a44; line-height: 1.45; }
+    .meta { color: #6a655e; font-size: 14px; line-height: 1.7; }
+    .icons { display: flex; gap: 8px; margin-top: 14px; align-items: center; }
+    .icons i {
+      width: 32px; height: 32px; border-radius: 50%; background: #f6f1ea;
+      display: grid; place-items: center; font-style: normal;
+    }
+    footer {
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      padding: 22px 8px 48px; color: #8a847c; font-size: 12px; letter-spacing: 0.08em;
+    }
+
+    .door {
+      position: fixed; inset: 0; background: rgba(40, 34, 30, 0.28);
+      display: none; align-items: center; justify-content: center;
+      z-index: 40; padding: 20px;
+    }
+    .door.open { display: flex; }
+    .door-card {
+      width: min(520px, 100%);
+      background: #fffaf5 url("desk.png") center / cover;
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow: 0 30px 80px rgba(40, 30, 20, 0.2);
+    }
+    .door-card form { background: rgba(255,252,248,0.94); border-radius: 20px; padding: 18px; }
+    .door-card h3 { font-family: var(--serif); font-size: 32px; margin: 0 0 6px; }
+    label { display: block; font-size: 12px; letter-spacing: 0.08em; color: #6d675f; margin: 12px 0 6px; }
+    input, select, textarea {
+      width: 100%; border: 1px solid #eadfd2; background: #fff; border-radius: 12px;
+      padding: 12px; font-size: 15px; color: var(--ink);
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .door-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+    .heart {
+      position: fixed; right: 22px; bottom: 22px; z-index: 15;
+      width: 52px; height: 52px; border-radius: 50%; border: 0; background: #fff;
+      box-shadow: 0 10px 24px rgba(60,40,30,0.1); cursor: pointer; font-size: 18px;
+    }
+    .heart.on { background: #1c1b19; color: #fff; }
+
+    @media (max-width: 900px) {
+      header { padding: 14px 16px; }
+      .pills { display: none; }
+      .hero, .zones, .tiers, .panel, .close, .price-head { grid-template-columns: 1fr; display: grid; }
+      .float-pill { position: static; display: inline-block; margin-top: 12px; }
+      .partner { margin-top: 18px; }
+      h1 { font-size: 46px; }
+      .panel, .close { padding: 22px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="#top"><span class="mark">S</span> SOPHIE + SAGE</a>
+    <div class="pills">
+      <span class="pill">FOUNDER-LED · SURVIVOR-LED</span>
+      <span class="pill">ZERO-FOOTPRINT · FLAT-FEE · NO RETAINERS</span>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <div class="kicker">
+          <span class="tag">REFERRAL-ONLY <span aria-hidden="true">♡</span></span>
+          <span class="eyebrow"><span class="dot"></span> LOGISTICS EXIT CONCIERGE</span>
+        </div>
+        <h1>
+          <span class="line">Your client is</span>
+          <span class="line">ready to</span>
+          <span class="line"><span class="under">transition.</span></span>
+        </h1>
+        <p class="italic">We never compete with your zone of genius.</p>
+        <p class="lede">A one-pager for the brilliant humans who get clients <em>emotionally</em> ready: coaches, family-law attorneys, housing advocates. You keep the relationship. We quietly handle the 20+ hour logistics grind — privately, flat-fee, no retainer drama.</p>
+        <div class="actions">
+          <a class="btn btn-dark" href="#how">See how it works <span aria-hidden="true">→</span></a>
+          <a class="btn btn-light" href="#reality"><span aria-hidden="true">🪴</span> White-label updates · you stay the hero</a>
+        </div>
+        <div class="trust">
+          <div class="faces" aria-hidden="true"><span>♡</span><span>＋</span><span>○</span></div>
+          <span>Trusted by advocates in 12 states · No public client list, ever.</span>
+        </div>
+      </div>
+
+      <aside class="partner" aria-label="For partners only">
+        <span class="leaf" aria-hidden="true">🌿</span>
+        <div class="partner-top">
+          <span class="micro">FOR PARTNERS ONLY</span>
+          <span class="est">EST. 2024 · HENDERSON, NV</span>
+        </div>
+        <div class="mini-grid">
+          <article class="mini sage">
+            <div aria-hidden="true">📋</div>
+            <h3>Blueprint in 24–72h</h3>
+            <p>Survival budget + doc checklist delivered to you, not her.</p>
+          </article>
+          <article class="mini lilac">
+            <div aria-hidden="true">✨</div>
+            <h3>Stabilized handoff</h3>
+            <p>Housed, utilities on, movers done. You keep the bond.</p>
+          </article>
+        </div>
+        <article class="zero">
+          <h3><span class="s-badge">S</span> Zero-footprint by default</h3>
+          <p>Signal / Proton only. Third-Party Designee paperwork. We never contact her without safe-channel consent. Ever.</p>
+        </article>
+        <div class="studio">
+          <span class="chip-dark">WHIMSY & WEEDS</span>
+          <span>founder-led · survivor-led studio</span>
+        </div>
+        <div class="float-pill">flat-fee only :) no retainers</div>
+      </aside>
+    </div>
+
+    <section id="reality">
+      <div class="wrap">
+        <span class="label">02 · THE REALITY</span>
+        <h2>The clarity is here, the housing is next.</h2>
+        <p class="sub">You do the work only you can do. We take the operational load that stalls the exit — the boring-but-critical 20+ hours that shouldn’t live on your plate or hers.</p>
+        <div class="zones">
+          <article class="zone">
+            <div class="zone-top">
+              <span class="icon-bubble" aria-hidden="true">🫶</span>
+              <span class="zone-tag">YOUR ZONE</span>
+            </div>
+            <h3><span class="num">01</span> You keep the container</h3>
+            <p>No coaching overlap. No legal advice. No advocacy replacement. White-label updates if you want credit in the room. We stay behind the curtain.</p>
+          </article>
+          <article class="zone b">
+            <div class="zone-top">
+              <span class="icon-bubble" aria-hidden="true">🧹</span>
+              <span class="zone-tag">OUR ZONE</span>
+            </div>
+            <h3><span class="num">02</span> We keep the friction</h3>
+            <p>Private housing search, utilities + DV waivers, movers + storage, doc checklist, credit triage. The unsexy stuff that actually gets her housed.</p>
+          </article>
+          <article class="zone c">
+            <div class="zone-top">
+              <span class="icon-bubble" aria-hidden="true">🪴</span>
+              <span class="zone-tag">HER SAFETY</span>
+            </div>
+            <h3><span class="num">03</span> She keeps her safety</h3>
+            <p>Zero-footprint by default. Signal / Proton. Third-Party Designee. We never contact her without safe-channel consent. Privacy is the product.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="wrap">
+        <div class="price-head">
+          <div>
+            <span class="label">03 · PRICING</span>
+            <h2>Simple, flat-fee. No retainers. Like, ever.</h2>
+          </div>
+          <p class="price-note">One fee. No hourly anxiety. Pay once, get housed. We’d rather be delightful to work with than hard to book.</p>
+        </div>
+        <div class="tiers">
+          <article class="tier light">
+            <div class="who">TIER 01</div>
+            <h3>The Exit Blueprint</h3>
+            <div class="price">$250 <span>Strategy Only</span></div>
+            <ul class="checks">
+              <li><span class="check">✓</span> Cost-of-living audit (real city, real rent)</li>
+              <li><span class="check">✓</span> 30 / 60 / 90-day survival budget</li>
+              <li><span class="check">✓</span> Credit & debt triage — soft pull only</li>
+              <li><span class="check">✓</span> Utility & doc checklist (DV waivers flagged)</li>
+            </ul>
+            <div class="note">Best when she can self-execute with a roadmap. You get the packet, not her inbox.</div>
+          </article>
+          <article class="tier dark">
+            <span class="most">MOST REQUESTED ✦</span>
+            <div class="who">TIER 02</div>
+            <h3>Rapid Housing Placement</h3>
+            <div class="price">$750 <span>Includes Tier 01+</span></div>
+            <ul class="checks">
+              <li><span class="check">✓</span> White-glove execution — we do the calls</li>
+              <li><span class="check">✓</span> Utility concierge + DV waiver letters</li>
+              <li><span class="check">✓</span> Housing apps + move coordination</li>
+              <li><span class="check">✓</span> Handoff with stabilized utilities + keys</li>
+            </ul>
+            <div class="note">Best when you need us to carry the 20+ hour grind. We stay invisible until handoff. ✦</div>
+            <button class="btn wide" type="button" data-open-door>Flat-fee. Zero retainer. <span aria-hidden="true">→</span></button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="panel">
+          <div>
+            <span class="chip-dark">04 · HOW IT WORKS</span>
+            <h2 style="margin-top:18px">Let’s make exit executable.</h2>
+            <p class="sub">Your client has done the hardest part — deciding to leave. We handle the rest, safely and discreetly. You stay in genius.</p>
+            <div class="dash" aria-hidden="true"></div>
+            <div class="path">YOU — US — HOUSED</div>
+          </div>
+          <div class="steps">
+            <article class="step s1">
+              <span class="icon-bubble" aria-hidden="true">🔒</span>
+              <div><strong><span class="n">01</span> Safe intake</strong><p>Signal / Proton via you. No direct contact until safe-channel consent. We document Third-Party Designee from day one.</p></div>
+              <span aria-hidden="true">→</span>
+            </article>
+            <article class="step s2">
+              <span class="icon-bubble" aria-hidden="true">📋</span>
+              <div><strong><span class="n">02</span> Blueprint</strong><p>24–72h packet to the partner: budget, COL audit, credit triage, checklist. You decide what she sees.</p></div>
+              <span aria-hidden="true">→</span>
+            </article>
+            <article class="step s3">
+              <span class="icon-bubble" aria-hidden="true">📦</span>
+              <div><strong><span class="n">03</span> Execution</strong><p>Housing applications, utility DV waivers, movers + storage. We do the hold music so you don’t have to.</p></div>
+              <span aria-hidden="true">→</span>
+            </article>
+            <article class="step s4">
+              <span class="icon-bubble" aria-hidden="true">✨</span>
+              <div><strong><span class="n">04</span> Handoff</strong><p>She is housed. Utilities stabilized. You keep the bond. We disappear unless you need us again. ✦</p></div>
+              <span aria-hidden="true">→</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="refer">
+      <div class="wrap">
+        <div class="close">
+          <div>
+            <h2>Ready when your client is.</h2>
+            <p class="sub">Referral-only. No public client list. We never replace your coaching, legal counsel, or advocacy. Just the logistics you shouldn’t have to carry.</p>
+            <button class="btn btn-dark" type="button" data-open-door>Refer a client <span aria-hidden="true">→</span></button>
+          </div>
+          <aside class="promise">
+            <span class="micro">OPERATIONAL PROMISE</span>
+            <p>We never replace your coaching, legal counsel, or advocacy. Referral-only. No public client list.</p>
+            <div class="meta">
+              Henderson, NV · Remote US<br />
+              hello@sophieandsage.co · Signal by referral
+            </div>
+            <div class="icons">
+              <i aria-hidden="true">🪴</i><i aria-hidden="true">📋</i><i aria-hidden="true">✨</i>
+              <span class="micro" style="margin-left:auto">ZERO-FOOTPRINT</span>
+            </div>
+          </aside>
+        </div>
+        <footer>
+          <span>SOPHIE + SAGE · LOGISTICS EXIT CONCIERGE · REFERRAL-ONLY</span>
+          <span>Whimsy & Weeds studio · made with care</span>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <button class="heart" type="button" aria-label="Quiet thank-you">♡</button>
+
+  <div class="door" id="door" role="dialog" aria-modal="true" aria-labelledby="door-title">
+    <div class="door-card">
+      <form id="refer-form" action="mailto:hello@sophieandsage.co" method="post" enctype="text/plain">
+        <span class="micro">THE DOOR · REFERRAL ONLY</span>
+        <h3 id="door-title">Refer a client.</h3>
+        <p class="sub" style="margin-bottom:8px">No public list. No cold contact. You stay the hero; we take the logistics.</p>
+        <label for="name">Your name</label>
+        <input id="name" name="partner" required placeholder="The person she already trusts" />
+        <label for="role">Your seat</label>
+        <select id="role" name="role">
+          <option>Coach</option>
+          <option>Family-law attorney</option>
+          <option>Housing advocate</option>
+          <option>Other partner</option>
+        </select>
+        <label for="channel">Safe channel</label>
+        <select id="channel" name="channel">
+          <option>Signal</option>
+          <option>Proton</option>
+        </select>
+        <label for="city">City she is leaving toward</label>
+        <input id="city" name="city" placeholder="City only — no client name required" />
+        <label for="tier">What you need</label>
+        <select id="tier" name="tier">
+          <option>Exit Blueprint · $250</option>
+          <option>Rapid Housing Placement · $750</option>
+          <option>Not sure yet</option>
+        </select>
+        <label for="note">Desk note</label>
+        <textarea id="note" name="note" placeholder="What should be quiet. What can wait."></textarea>
+        <div class="door-actions">
+          <button class="btn btn-light" type="button" data-close-door>Close</button>
+          <button class="btn btn-dark" type="submit">Send the referral</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const door = document.getElementById("door");
+    document.querySelectorAll("[data-open-door]").forEach((el) => el.addEventListener("click", () => door.classList.add("open")));
+    document.querySelectorAll("[data-close-door]").forEach((el) => el.addEventListener("click", () => door.classList.remove("open")));
+    door.addEventListener("click", (e) => { if (e.target === door) door.classList.remove("open"); });
+    document.querySelector(".heart").addEventListener("click", (e) => e.currentTarget.classList.toggle("on"));
+  </script>
+</body>
+</html>
