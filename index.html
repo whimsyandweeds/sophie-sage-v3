@@ -337,17 +337,20 @@
     }
 
     .cart {
-      position: fixed; left: 22px; bottom: 22px; z-index: 30;
+      position: fixed; top: 78px; right: 22px; z-index: 30;
+      display: flex; flex-direction: column; align-items: flex-end;
       font-family: Inter, sans-serif;
     }
     .cart-btn {
       width: 64px; height: 64px; border-radius: 50%;
-      border: 2px solid #c9b6e4; background: #fff; color: #1c1b19;
-      font-family: Inter, sans-serif; font-size: 13px; font-weight: 500;
-      cursor: pointer; box-shadow: 0 10px 24px rgba(60, 40, 30, 0.08);
+      border: 2px solid #c9b6e4; background: #fff; color: #6d6188;
+      display: grid; place-items: center; gap: 1px;
+      font-family: Inter, sans-serif; font-size: 9px; font-weight: 600;
+      letter-spacing: 0.06em; cursor: pointer;
+      box-shadow: 0 10px 24px rgba(60, 40, 30, 0.08);
     }
     .cart-panel {
-      position: absolute; left: 0; bottom: 76px;
+      position: absolute; right: 0; top: 76px;
       width: min(320px, calc(100vw - 32px));
       background: rgba(255, 252, 248, 0.96);
       border: 1px solid #c9b6e4; border-radius: 18px; padding: 14px;
@@ -403,7 +406,7 @@
     .desk-received { margin: 0; font-size: 14px; line-height: 1.45; }
 
     @media (max-width: 900px) {
-      header { padding: 14px 16px; flex-wrap: wrap; }
+      .cart { top: 108px; right: 14px; }
       .pills { display: flex; gap: 6px; }
       .pill { font-size: 9px; padding: 6px 10px; }
       .hero, .zones, .tiers, .panel, .close, .price-head { grid-template-columns: 1fr; display: grid; }
@@ -655,22 +658,25 @@
     <div class="cart-panel" id="cart-panel" hidden>
       <p>Free sheets. Download the file, or open it and screenshot the page.</p>
       <div class="cart-item">
-        <strong>What the flat-fee covers</strong>
+        <strong>Free · What the flat-fee covers</strong>
         <a href="pdfs/flat-fee.pdf" download>Download</a>
         <a href="pdfs/flat-fee.pdf" target="_blank" rel="noopener">Open</a>
       </div>
       <div class="cart-item">
-        <strong>Partner referral sheet</strong>
+        <strong>Free · Partner referral sheet</strong>
         <a href="pdfs/partner-referral.pdf" download>Download</a>
         <a href="pdfs/partner-referral.pdf" target="_blank" rel="noopener">Open</a>
       </div>
       <div class="cart-item">
-        <strong>How the exit works</strong>
+        <strong>Free · How the exit works</strong>
         <a href="pdfs/how-exit-works.pdf" download>Download</a>
         <a href="pdfs/how-exit-works.pdf" target="_blank" rel="noopener">Open</a>
       </div>
     </div>
-    <button class="cart-btn" id="cart-btn" type="button" aria-expanded="false" aria-controls="cart-panel">Cart</button>
+    <button class="cart-btn" id="cart-btn" type="button" aria-expanded="false" aria-controls="cart-panel" aria-label="Free sheets">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M7 3.5h7.2L19 8.2V20.5H7z"/><path fill="none" stroke="#6d6188" stroke-width="1.6" d="M14 3.8V8.4h4.4"/><path fill="#efe6f6" stroke="#6d6188" stroke-width="1.2" d="M8.2 13.2h7.6v5.2H8.2z"/><text x="12" y="16.8" text-anchor="middle" font-size="3.2" font-family="Inter, sans-serif" fill="#6d6188">FREE</text></svg>
+      FREE
+    </button>
   </div>
 
   <div class="desk">
