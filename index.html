@@ -7,7 +7,7 @@
   <meta name="description" content="Referral-only logistics exit concierge for coaches, family-law attorneys, and housing advocates. Flat-fee. Zero footprint. No retainers." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,560;0,9..144,620;1,9..144,460;1,9..144,520&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,560;0,9..144,620;1,9..144,460;1,9..144,520&family=Inter:wght@400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231c1b19'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-size='14' fill='white' font-family='Georgia'%3ES%3C/text%3E%3C/svg%3E" />
   <style>
     :root {
@@ -317,34 +317,49 @@
       padding: 22px 8px 48px; color: #8a847c; font-size: 12px; letter-spacing: 0.08em;
     }
 
-    .door {
-      position: fixed; inset: 0; background: rgba(40, 34, 30, 0.28);
-      display: none; align-items: center; justify-content: center;
-      z-index: 40; padding: 20px;
+    .desk {
+      position: fixed; right: 22px; bottom: 22px; z-index: 30;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+      font-family: Inter, sans-serif;
     }
-    .door.open { display: flex; }
-    .door-card {
-      width: min(520px, 100%);
-      background: #fffaf5 url("plate.jpg") center / cover;
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: 0 30px 80px rgba(40, 30, 20, 0.2);
+    .desk-btn {
+      width: 92px; height: 92px; border-radius: 50%;
+      border: 2px solid #6d6188; background: #fff; color: #1c1b19;
+      font-family: Inter, sans-serif; font-size: 12px; font-weight: 500;
+      line-height: 1.2; letter-spacing: 0; cursor: pointer;
+      box-shadow: 0 10px 24px rgba(60, 40, 30, 0.08);
     }
-    .door-card form { background: rgba(255,252,248,0.94); border-radius: 20px; padding: 18px; }
-    .door-card h3 { font-family: var(--serif); font-size: 32px; margin: 0 0 6px; }
-    label { display: block; font-size: 12px; letter-spacing: 0.08em; color: #6d675f; margin: 12px 0 6px; }
-    input, select, textarea {
-      width: 100%; border: 1px solid #eadfd2; background: #fff; border-radius: 12px;
-      padding: 12px; font-size: 15px; color: var(--ink);
+    .desk-panel {
+      width: min(360px, calc(100vw - 32px));
+      max-height: min(70vh, 560px); overflow: auto;
+      background: rgba(255, 252, 248, 0.96);
+      border: 1px solid rgba(109, 97, 136, 0.35);
+      border-radius: 18px; padding: 16px;
+      box-shadow: 0 18px 40px rgba(60, 40, 30, 0.12);
+      color: #1c1b19;
     }
-    textarea { min-height: 90px; resize: vertical; }
-    .door-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
-    .heart {
-      position: fixed; right: 22px; bottom: 22px; z-index: 15;
-      width: 52px; height: 52px; border-radius: 50%; border: 0; background: #fff;
-      box-shadow: 0 10px 24px rgba(60,40,30,0.1); cursor: pointer; font-size: 18px;
+    .desk-panel[hidden] { display: none; }
+    .desk-lead { margin: 0 0 12px; font-size: 14px; line-height: 1.45; }
+    .desk-actions { display: flex; flex-direction: column; gap: 8px; }
+    .desk-actions button, .desk-submit, .desk-back {
+      font-family: Inter, sans-serif; font-size: 14px; cursor: pointer;
+      border-radius: 999px; border: 1px solid #6d6188; background: #fff; color: #1c1b19;
+      padding: 10px 12px; text-align: left;
     }
-    .heart.on { background: #1c1b19; color: #fff; }
+    .desk-submit { background: #1c1b19; color: #fff; border-color: #1c1b19; width: 100%; text-align: center; margin-top: 12px; }
+    .desk-back { width: auto; margin-bottom: 10px; }
+    .desk-panel label { display: block; font-family: Inter, sans-serif; font-size: 12px; letter-spacing: 0.04em; color: #5e5a55; margin: 12px 0 6px; }
+    .desk-panel input, .desk-panel select, .desk-panel textarea {
+      width: 100%; border: 1px solid #eadfd2; background: #fff; border-radius: 10px;
+      padding: 10px; font-size: 14px; color: #1c1b19; font-family: Inter, sans-serif;
+    }
+    .desk-panel textarea { min-height: 72px; resize: vertical; }
+    .desk-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.4; margin: 0 0 8px; }
+    .desk-check input { width: auto; margin-top: 3px; }
+    .desk-note { margin: 12px 0 0; font-size: 12px; line-height: 1.45; color: #5e5a55; }
+    .desk-answer p { margin: 0 0 10px; font-size: 14px; line-height: 1.45; }
+    .desk-code { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(28, 27, 25, 0.08); }
+    .desk-received { margin: 0; font-size: 14px; line-height: 1.45; }
 
     @media (max-width: 900px) {
       header { padding: 14px 16px; }
@@ -488,7 +503,7 @@
               <li><span class="check">✓</span> Handoff with stabilized utilities + keys</li>
             </ul>
             <div class="note">Best when you need us to carry the 20+ hour grind. We stay invisible until handoff. ✦</div>
-            <button class="btn wide" type="button" data-open-door>Flat-fee. Zero retainer. <span aria-hidden="true">→</span></button>
+            <button class="btn wide" type="button" data-open-desk="covers">Flat-fee. Zero retainer. <span aria-hidden="true">→</span></button>
           </article>
         </div>
       </div>
@@ -536,7 +551,7 @@
           <div>
             <h2>Ready when your client is.</h2>
             <p class="sub">Referral-only. No public client list. We never replace your coaching, legal counsel, or advocacy. Just the logistics you shouldn’t have to carry.</p>
-            <button class="btn btn-dark" type="button" data-open-door>Refer a client <span aria-hidden="true">→</span></button>
+            <button class="btn btn-dark" type="button" data-open-desk="refer">Refer a client <span aria-hidden="true">→</span></button>
           </div>
           <aside class="promise">
             <span class="micro">OPERATIONAL PROMISE</span>
@@ -559,52 +574,269 @@
     </section>
   </main>
 
-  <button class="heart" type="button" aria-label="Quiet thank-you">♡</button>
-
-  <div class="door" id="door" role="dialog" aria-modal="true" aria-labelledby="door-title">
-    <div class="door-card">
-      <form id="refer-form" action="mailto:hello@sophieandsage.co" method="post" enctype="text/plain">
-        <span class="micro">THE DOOR · REFERRAL ONLY</span>
-        <h3 id="door-title">Refer a client.</h3>
-        <p class="sub" style="margin-bottom:8px">No public list. No cold contact. You stay the hero; we take the logistics.</p>
-        <label for="name">Your name</label>
-        <input id="name" name="partner" required placeholder="The person she already trusts" />
-        <label for="role">Your seat</label>
-        <select id="role" name="role">
-          <option>Coach</option>
-          <option>Family-law attorney</option>
-          <option>Housing advocate</option>
-          <option>Other partner</option>
-        </select>
-        <label for="channel">Safe channel</label>
-        <select id="channel" name="channel">
-          <option>Signal</option>
-          <option>Proton</option>
-        </select>
-        <label for="city">City she is leaving toward</label>
-        <input id="city" name="city" placeholder="City only — no client name required" />
-        <label for="tier">What you need</label>
-        <select id="tier" name="tier">
-          <option>Exit Blueprint · $250</option>
-          <option>Rapid Housing Placement · $750</option>
-          <option>Not sure yet</option>
-        </select>
-        <label for="note">Desk note</label>
-        <textarea id="note" name="note" placeholder="What should be quiet. What can wait."></textarea>
-        <div class="door-actions">
-          <button class="btn btn-light" type="button" data-close-door>Close</button>
-          <button class="btn btn-dark" type="submit">Send the referral</button>
+  <div class="desk">
+    <div class="desk-panel" id="desk-panel" hidden>
+      <div data-view="home">
+        <p class="desk-lead">Referral only. We do not contact her without a safe channel.</p>
+        <div class="desk-actions">
+          <button type="button" data-go="refer">Refer a client</button>
+          <button type="button" data-go="intro">Partner intro</button>
+          <button type="button" data-go="covers">What the flat-fee covers</button>
         </div>
-      </form>
+        <form class="desk-code" id="code-gate">
+          <label for="desk-code">Desk code</label>
+          <input id="desk-code" name="code" autocomplete="off" maxlength="6" spellcheck="false" />
+          <button class="desk-submit" type="submit">Continue</button>
+          <p class="desk-note">This page is not Signal. Anything she does not want in email goes to Signal or Proton.</p>
+        </form>
+      </div>
+
+      <div data-view="covers" hidden>
+        <button class="desk-back" type="button" data-go="home">Back</button>
+        <div class="desk-answer">
+          <p>Exit Blueprint is $250: audit, budget, credit triage, document checklist.</p>
+          <p>Rapid Placement is $750: that, plus housing, utilities, movers, and handoff.</p>
+          <p>No retainers. No legal advice. No coaching.</p>
+          <p>Sensitive details go to Signal or Proton, not this box.</p>
+        </div>
+      </div>
+
+      <div data-view="intro" hidden>
+        <button class="desk-back" type="button" data-go="home">Back</button>
+        <form id="intro-form">
+          <label for="intro-name">Name</label>
+          <input id="intro-name" name="name" required autocomplete="name" />
+          <label for="intro-mobile">Mobile</label>
+          <input id="intro-mobile" name="mobile" type="tel" required autocomplete="tel" />
+          <label for="intro-email">Email</label>
+          <input id="intro-email" name="email" type="email" required autocomplete="email" />
+          <button class="desk-submit" type="submit">Send</button>
+        </form>
+      </div>
+
+      <div data-view="refer" hidden>
+        <button class="desk-back" type="button" data-go="home">Back</button>
+        <form id="refer-form">
+          <label class="desk-check">
+            <input id="refer-check" type="checkbox" />
+            <span>She knows about this referral, and the safe channel is Signal, Proton, or the partner.</span>
+          </label>
+          <div id="refer-rest" hidden>
+            <label for="refer-name">Name</label>
+            <input id="refer-name" name="name" autocomplete="name" />
+            <label for="refer-mobile">Mobile</label>
+            <input id="refer-mobile" name="mobile" type="tel" autocomplete="tel" />
+            <label for="refer-email">Email</label>
+            <input id="refer-email" name="email" type="email" autocomplete="email" />
+            <label for="refer-first">Her first name or initials</label>
+            <input id="refer-first" name="first" autocomplete="off" />
+            <label for="refer-city">City, not the street</label>
+            <input id="refer-city" name="city" autocomplete="off" />
+            <label for="refer-pets">Pets</label>
+            <select id="refer-pets" name="pets">
+              <option value="">Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+            <label for="refer-window">Window</label>
+            <select id="refer-window" name="window">
+              <option value="">Select</option>
+              <option>30</option>
+              <option>60</option>
+              <option>90</option>
+            </select>
+            <label for="refer-budget">Budget band</label>
+            <select id="refer-budget" name="budget">
+              <option value="">Select</option>
+              <option>Under $1,500</option>
+              <option>$1,500–$2,500</option>
+              <option>$2,500–$4,000</option>
+              <option>$4,000 and above</option>
+            </select>
+            <label for="refer-note">Note</label>
+            <textarea id="refer-note" name="note"></textarea>
+            <p class="desk-note">The address and full name go on the safe channel after we reply. This page does not keep a client list.</p>
+            <button class="desk-submit" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+
+      <div data-view="detail" hidden>
+        <form id="detail-form">
+          <label for="detail-street">Street</label>
+          <input id="detail-street" name="street" required autocomplete="off" />
+          <label for="detail-unit">Unit</label>
+          <input id="detail-unit" name="unit" autocomplete="off" />
+          <label for="detail-city">City</label>
+          <input id="detail-city" name="city" required autocomplete="off" />
+          <label for="detail-date">Date she can leave</label>
+          <input id="detail-date" name="date" type="date" required />
+          <label for="detail-pets">Pets</label>
+          <select id="detail-pets" name="pets" required>
+            <option value="">Select</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <label for="detail-move">What has to move</label>
+          <textarea id="detail-move" name="move" required></textarea>
+          <label for="detail-utilities">Utility accounts</label>
+          <textarea id="detail-utilities" name="utilities" required></textarea>
+          <label for="detail-channel">The channel she will answer on</label>
+          <input id="detail-channel" name="channel" required autocomplete="off" />
+          <button class="desk-submit" type="submit">Send</button>
+          <p class="desk-note">This page is not Signal. Anything she does not want in email goes to Signal or Proton.</p>
+        </form>
+      </div>
+
+      <div data-view="received" hidden>
+        <p class="desk-received" id="desk-received"></p>
+      </div>
     </div>
+    <button class="desk-btn" id="desk-btn" type="button" aria-expanded="false" aria-controls="desk-panel">Partner desk</button>
   </div>
 
   <script>
-    const door = document.getElementById("door");
-    document.querySelectorAll("[data-open-door]").forEach((el) => el.addEventListener("click", () => door.classList.add("open")));
-    document.querySelectorAll("[data-close-door]").forEach((el) => el.addEventListener("click", () => door.classList.remove("open")));
-    door.addEventListener("click", (e) => { if (e.target === door) door.classList.remove("open"); });
-    document.querySelector(".heart").addEventListener("click", (e) => e.currentTarget.classList.toggle("on"));
+    const panel = document.getElementById("desk-panel");
+    const deskBtn = document.getElementById("desk-btn");
+    const views = panel.querySelectorAll("[data-view]");
+    const referRest = document.getElementById("refer-rest");
+    const referCheck = document.getElementById("refer-check");
+    let matchedCode = "";
+
+    function show(name) {
+      views.forEach((view) => { view.hidden = view.getAttribute("data-view") !== name; });
+    }
+
+    function openDesk(name) {
+      panel.hidden = false;
+      deskBtn.setAttribute("aria-expanded", "true");
+      show(name || "home");
+    }
+
+    function closeDesk() {
+      panel.hidden = true;
+      deskBtn.setAttribute("aria-expanded", "false");
+      show("home");
+      matchedCode = "";
+      document.getElementById("desk-code").value = "";
+    }
+
+    deskBtn.addEventListener("click", () => {
+      if (panel.hidden) openDesk("home");
+      else closeDesk();
+    });
+
+    panel.querySelectorAll("[data-go]").forEach((el) => {
+      el.addEventListener("click", () => show(el.getAttribute("data-go")));
+    });
+
+    document.querySelectorAll("[data-open-desk]").forEach((el) => {
+      el.addEventListener("click", () => openDesk(el.getAttribute("data-open-desk")));
+    });
+
+    referCheck.addEventListener("change", () => {
+      referRest.hidden = !referCheck.checked;
+      referRest.querySelectorAll("input, select, textarea").forEach((field) => {
+        if (field.id === "refer-note") return;
+        field.required = referCheck.checked;
+      });
+    });
+
+    function usedCodes() {
+      try { return JSON.parse(localStorage.getItem("sage-used-codes") || "[]"); }
+      catch (e) { return []; }
+    }
+
+    function markUsed(code) {
+      const list = usedCodes();
+      list.push(code);
+      localStorage.setItem("sage-used-codes", JSON.stringify(list));
+    }
+
+    async function sendMail(subject, fields) {
+      const res = await fetch("https://formsubmit.co/ajax/whimsyandweeds@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(Object.assign({ _subject: subject, _captcha: "false", _template: "table" }, fields))
+      });
+      if (!res.ok) throw new Error("send failed");
+    }
+
+    document.getElementById("intro-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      await sendMail("Partner intro", {
+        name: data.get("name"),
+        mobile: data.get("mobile"),
+        email: data.get("email")
+      });
+      document.getElementById("desk-received").textContent = "Received. We will text a desk code to the number you just gave. She uses that code on this same button.";
+      show("received");
+      event.currentTarget.reset();
+    });
+
+    document.getElementById("refer-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!referCheck.checked) return;
+      const data = new FormData(event.currentTarget);
+      await sendMail("Refer a client", {
+        name: data.get("name"),
+        mobile: data.get("mobile"),
+        email: data.get("email"),
+        first_name_or_initials: data.get("first"),
+        city: data.get("city"),
+        pets: data.get("pets"),
+        window: data.get("window"),
+        budget_band: data.get("budget"),
+        note: data.get("note") || ""
+      });
+      document.getElementById("desk-received").textContent = "Received. We will text a desk code to the number you just gave. She uses that code on this same button.";
+      show("received");
+      event.currentTarget.reset();
+      referRest.hidden = true;
+    });
+
+    document.getElementById("code-gate").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const entered = document.getElementById("desk-code").value.trim();
+      if (entered.length !== 6) return;
+      const key = entered.toUpperCase();
+      if (usedCodes().indexOf(key) !== -1) return;
+      let active = [];
+      try {
+        const res = await fetch("codes.json?t=" + Date.now(), { cache: "no-store" });
+        const data = await res.json();
+        active = (data.active || []).map((code) => String(code).trim().toUpperCase());
+      } catch (e) {
+        return;
+      }
+      if (active.indexOf(key) === -1) return;
+      matchedCode = key;
+      show("detail");
+    });
+
+    document.getElementById("detail-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!matchedCode) return;
+      const data = new FormData(event.currentTarget);
+      await sendMail("Desk code " + matchedCode, {
+        code: matchedCode,
+        street: data.get("street"),
+        unit: data.get("unit") || "",
+        city: data.get("city"),
+        date_she_can_leave: data.get("date"),
+        pets: data.get("pets"),
+        what_has_to_move: data.get("move"),
+        utility_accounts: data.get("utilities"),
+        channel: data.get("channel")
+      });
+      markUsed(matchedCode);
+      document.getElementById("desk-received").textContent = "Received. We reply on the channel she named.";
+      show("received");
+      event.currentTarget.reset();
+      window.setTimeout(closeDesk, 1800);
+    });
   </script>
+
 </body>
 </html>
