@@ -374,8 +374,9 @@
     .desk-received { margin: 0; font-size: 14px; line-height: 1.45; }
 
     @media (max-width: 900px) {
-      header { padding: 14px 16px; }
-      .pills { display: none; }
+      header { padding: 14px 16px; flex-wrap: wrap; }
+      .pills { display: flex; gap: 6px; }
+      .pill { font-size: 9px; padding: 6px 10px; }
       .hero, .zones, .tiers, .panel, .close, .price-head { grid-template-columns: 1fr; display: grid; }
       .float-pill { position: static; display: inline-block; margin-top: 12px; }
       .partner { margin-top: 18px; }
