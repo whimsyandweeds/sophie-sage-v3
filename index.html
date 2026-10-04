@@ -461,13 +461,13 @@
       box-shadow: 0 0 0 7px rgba(201, 182, 228, 0.35), var(--shadow);
       transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s ease, border-color .18s ease;
     }
-    .step { box-shadow: var(--shadow); }
-    .step:hover {
+    .step, .mini, .zero { box-shadow: none; }
+    .step:hover, .mini:hover, .zero:hover {
       transform: translateY(-4px);
       border-color: #8d74ad;
-      box-shadow: 0 10px 24px rgba(80,60,100,.10);
+      box-shadow: none;
     }
-    .zone:hover, .tier:hover, .mini:hover, .panel:hover, .zero:hover, .close:hover, .promise:hover {
+    .zone:hover, .tier:hover, .panel:hover, .close:hover, .promise:hover {
       transform: translateY(-4px);
       border-color: #8d74ad;
       box-shadow: 0 0 0 7px rgba(201, 182, 228, 0.5), 0 10px 24px rgba(80,60,100,.10);
