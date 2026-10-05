@@ -550,8 +550,10 @@
       .pills { display: flex; gap: 6px; }
       .pill { font-size: 9px; padding: 6px 10px; }
       .hero, .tiers, .panel, .close, .price-head { grid-template-columns: 1fr; display: grid; }
-      .zones-page .zones { grid-template-columns: 1fr; width: min(320px, 88%); margin: 0 auto; }
-      .zones-page .zone { aspect-ratio: 1; min-height: 220px; }
+      .zones-page .zones { grid-template-columns: 1fr; width: min(300px, 88%); margin: 0 auto; }
+      .zones-page .zone { aspect-ratio: auto; min-height: 0; padding: 18px 16px; }
+      .zones-page .zone h3 { font-size: 20px; }
+      .zones-page .zone p { font-size: 15px; line-height: 1.4; }
       .float-pill { position: static; display: inline-block; margin-top: 12px; }
       .partner { margin-top: 18px; }
       h1 { font-size: 46px; }
