@@ -529,9 +529,13 @@
     .cart-panel p { margin: 0 0 10px; font-size: 13px; line-height: 1.4; color: #3c3935; }
     .cart-item { padding: 10px 0; border-top: 1px solid rgba(28, 27, 25, 0.08); }
     .cart-item strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
-    .cart-item.warn { border-top-color: rgba(160, 74, 74, 0.28); }
+    .cart-item.warn {
+      margin-top: 8px; padding: 10px 12px; border: 1px solid #c9a3a3;
+      background: #f3e4e4; border-radius: 16px;
+    }
     .cart-item.warn strong { color: #8d4a4a; }
-    .cart-item.warn a { border-color: #c9a3a3; color: #7a3e3e; }
+    .cart-item.warn strong::before { content: "⚠ "; }
+    .cart-item.warn a { border-color: #c9a3a3; color: #7a3e3e; background: #faf4f4; }
     .desk-btn {
       width: 52px; height: 52px; border-radius: 50%;
       border: 1.5px solid #6f7d62; background: transparent; color: #5f6b52;
