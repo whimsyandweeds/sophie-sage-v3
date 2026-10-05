@@ -432,13 +432,11 @@
       display: grid; place-items: center; font-style: normal;
     }
     footer {
-      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center;
+      display: flex; justify-content: space-between; gap: 18px; align-items: end;
       padding: 22px 8px 48px; color: #8a847c; font-size: 12px; letter-spacing: 0.08em;
     }
-    footer img { width: 54px; height: 54px; object-fit: contain; display: block; margin-top: 6px; }
-      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-      padding: 22px 8px 48px; color: #8a847c; font-size: 12px; letter-spacing: 0.08em;
-    }
+    footer .studio { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; text-align: right; }
+    footer img { width: 54px; height: 54px; object-fit: contain; }
 
     .desk {
       position: fixed; right: 22px; bottom: 22px; z-index: 30;
@@ -986,7 +984,7 @@
         </div>
         <footer>
           <span>SOPHIE + SAGE · LOGISTICS EXIT CONCIERGE · REFERRAL-ONLY</span>
-          <span>Whimsy & Weeds studio · made with care <img src="whimsy-mark.png?v=1" alt="Whimsy and Weeds" /></span>
+          <span class="studio">Whimsy & Weeds studio · made with care <img src="whimsy-mark.png?v=1" alt="Whimsy and Weeds" /></span>
         </footer>
       </div>
     </section>
