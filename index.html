@@ -518,7 +518,8 @@
       border: 1px solid #c9b6e4; border-radius: 999px; padding: 6px 10px;
       font-size: 12px; color: #1c1b19; background: #fff;
     }
-    .menu-panel .cart-item a { display: inline-block; padding: 6px 10px; border-color: #6f7d62; color: #4f5d45; }
+    .cart-item.pack { border-top: 0; padding-top: 4px; }
+    .cart-item.pack a { border-color: #6f7d62; background: #e7efe4; color: #3d4638; }
     .cart {
       position: fixed; left: 22px; bottom: 22px; z-index: 30;
       display: flex; flex-direction: column; align-items: flex-start;
@@ -703,6 +704,10 @@
         <a href="#refer">Refer</a>
         <button class="sheets-toggle" id="sheets-toggle" type="button" aria-expanded="false" aria-controls="sheets">Free Information</button>
         <div class="sheets" id="sheets" hidden>
+        <div class="cart-item pack">
+          <strong>All nine sheets</strong>
+          <a href="pdfs/free-information.pdf" download>Download the set</a>
+        </div>
         <div class="cart-item">
           <strong>Expose the Playbook</strong>
           <a href="sheets/expose-the-playbook.webp?v=3" download>Download</a>
