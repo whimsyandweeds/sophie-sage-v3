@@ -375,6 +375,15 @@
     .path { margin-top: 54px; color: #8a847c; letter-spacing: 0.14em; font-size: 12px; }
     .dash { height: 28px; border-bottom: 1.5px dashed #ddd4cc; width: 140px; margin-bottom: 8px; }
 
+    .refer-page .close { background: transparent; box-shadow: none; border: 0; padding: 0; }
+    .refer-page h2 { font-family: Fraunces, serif; color: #5f6b52; font-size: 28px; max-width: none; }
+    .check-list { list-style: none; padding: 0; margin: 16px 0; }
+    .check-list li { margin: 12px 0; font-size: 14px; }
+    .check-list strong { display: block; }
+    .intake { background: rgba(255,252,248,0.9); border-radius: 18px; padding: 18px; }
+    .intake label { display: block; font-size: 13px; margin: 10px 0 4px; }
+    .intake input, .intake textarea { width: 100%; border: 1px solid #c9c3ae; border-radius: 10px; padding: 10px; background: #fff; }
+    .intake .go { margin-top: 14px; background: #6f7d62; color: #fff; border: 0; border-radius: 10px; padding: 12px 16px; }
     .close {
       background: linear-gradient(180deg, rgba(232, 240, 228, 0.92), rgba(236, 242, 232, 0.88));
       border-radius: 32px;
@@ -817,26 +826,35 @@
       </div>
     </section>
 
-    <section class="page" id="refer">
+    <section class="page refer-page" id="refer">
       <div class="wrap">
         <div class="close">
           <div>
-            <h2>Ready when your client is.</h2>
-            <p class="sub">Referral-only. No public client list. We never replace your coaching, legal counsel, or advocacy. Just the logistics you shouldn’t have to carry.</p>
-            <button class="btn btn-dark" type="button" data-open-desk="refer">Refer a client <span aria-hidden="true">→</span></button>
+            <h2>How to Refer · Safe Intake Checklist</h2>
+            <ul class="check-list">
+              <li><strong>Signal Proton by referral</strong>trusted referral only, no cold contact</li>
+              <li><strong>Third-Party Designee</strong>appoint a designee for secure communication</li>
+              <li><strong>white-label updates</strong>you stay the hero, we remain discreet behind the scenes</li>
+              <li><strong>zero-footprint by default</strong>we never contact without safe-channel consent</li>
+              <li><strong>no public client list</strong>complete confidentiality, no public disclosure</li>
+              <li><strong>flat-fee only</strong>no retainer, transparent flat fee, no hidden costs</li>
+            </ul>
+            <p>All referrals handled with trauma-informed care & strict confidentiality.</p>
           </div>
-          <aside class="promise">
-            <span class="micro">OPERATIONAL PROMISE</span>
-            <p>We never replace your coaching, legal counsel, or advocacy. Referral-only. No public client list.</p>
-            <div class="meta">
-              Henderson, NV · Remote US<br />
-              hello@sophieandsage.co · Signal by referral
-            </div>
-            <div class="icons">
-              <i aria-hidden="true">🪴</i><i aria-hidden="true">📋</i><i aria-hidden="true">✨</i>
-              <span class="micro" style="margin-left:auto">ZERO-FOOTPRINT</span>
-            </div>
-          </aside>
+          <form class="intake" id="intake-form">
+            <h2>Secure Referral Intake Form</h2>
+            <label for="ref-name">Referrer Name</label>
+            <input id="ref-name" name="name" placeholder="Full name" required />
+            <label for="ref-email">Email / Safe Contact</label>
+            <input id="ref-email" name="email" placeholder="encrypted email or secure messenger" required />
+            <label for="ref-rel">Referral Relationship</label>
+            <input id="ref-rel" name="relationship" placeholder="e.g. client, provider, family advocate" required />
+            <label for="ref-need">Reason for Referral / Needs</label>
+            <textarea id="ref-need" name="needs" placeholder="Brief details — please keep confidential"></textarea>
+            <label class="desk-check"><input type="checkbox" required /> <span>I confirm safe-channel consent has been obtained from the individual</span></label>
+            <button class="go" type="submit">SUBMIT SECURE REFERRAL</button>
+            <p class="desk-note" id="intake-note" hidden>Received. We reply on the channel you named.</p>
+          </form>
         </div>
         <footer>
           <span>SOPHIE + SAGE · LOGISTICS EXIT CONCIERGE · REFERRAL-ONLY</span>
@@ -1052,6 +1070,15 @@
       localStorage.setItem("sage-used-codes", JSON.stringify(list));
     }
 
+    document.getElementById("intake-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const f = e.target;
+      await sendMail("Secure referral", {
+        name: f.name.value, email: f.email.value, relationship: f.relationship.value, needs: f.needs.value
+      });
+      f.reset();
+      document.getElementById("intake-note").hidden = false;
+    });
     async function sendMail(subject, fields) {
       const res = await fetch("https://formsubmit.co/ajax/whimsyandweeds@gmail.com", {
         method: "POST",
