@@ -587,7 +587,17 @@
     .desk-panel textarea { min-height: 72px; resize: vertical; }
     .desk-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; line-height: 1.4; margin: 0 0 8px; }
     .desk-check input { width: auto; margin-top: 3px; }
-    .desk-note { margin: 12px 0 0; font-size: 12px; line-height: 1.45; color: #5e5a55; }
+    .received {
+      position: fixed; left: 50%; top: 42%; transform: translate(-50%, -50%); z-index: 40;
+      width: min(240px, calc(100vw - 40px));
+      background: #fff; border: 1.5px solid #6f7d62; border-radius: 18px;
+      padding: 28px 16px 18px; text-align: center;
+      box-shadow: 0 18px 40px rgba(60, 40, 30, 0.16);
+      font-family: Inter, sans-serif;
+    }
+    .received[hidden] { display: none; }
+    .received strong { display: block; margin: 8px 0 6px; font-size: 16px; color: #3d4638; }
+    .received p { margin: 0; font-size: 13px; line-height: 1.4; color: #5e5a55; }
     .desk-answer p { margin: 0 0 10px; font-size: 14px; line-height: 1.45; }
     .desk-code { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(28, 27, 25, 0.08); }
     .desk-received { margin: 0; font-size: 14px; line-height: 1.45; }
@@ -764,7 +774,12 @@
     </div>
   </header>
 
-  <div class="nudge" id="nudge">
+  <div class="received" id="received" hidden>
+    <button class="x" id="received-close" type="button" aria-label="Close">×</button>
+    <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#6f7d62" stroke-width="1.7"/><path fill="none" stroke="#6f7d62" stroke-width="1.7" d="M7.5 12.2l3 3 6-6.4"/></svg>
+    <strong>Received</strong>
+    <p>We reply on the channel you named.</p>
+  </div>
     <button class="x" id="nudge-close" type="button" aria-label="Close">×</button>
     <svg class="doc" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="none" stroke="#6f7d62" stroke-width="1.7" d="M7 3.5h7l4 4V20.5H7z"/><path fill="none" stroke="#6f7d62" stroke-width="1.7" d="M14 3.5v4h4"/><path fill="none" stroke="#6f7d62" stroke-width="1.7" d="M9.5 12h5M9.5 15.5h5"/></svg>
     <p>free</p>
@@ -925,7 +940,7 @@
             <textarea id="ref-need" name="needs" placeholder="Brief details — please keep confidential"></textarea>
             <label class="desk-check"><input type="checkbox" required /> <span>I confirm safe-channel consent has been obtained from the individual</span></label>
             <button class="go" type="submit">SUBMIT SECURE REFERRAL</button>
-            <p class="desk-note" id="intake-note" hidden>Received. We reply on the channel you named.</p>
+            <p class="desk-note" id="intake-note" hidden></p>
           </form>
         </div>
         <footer>
@@ -1076,6 +1091,9 @@
     const nudge = document.getElementById("nudge");
     function hideNudge() { nudge.hidden = true; sessionStorage.setItem("sage-nudge", "1"); }
     if (sessionStorage.getItem("sage-nudge")) nudge.hidden = true;
+    document.getElementById("received-close").addEventListener("click", () => {
+      document.getElementById("received").hidden = true;
+    });
     document.getElementById("nudge-close").addEventListener("click", hideNudge);
     document.getElementById("nudge-open").addEventListener("click", () => {
       hideNudge();
@@ -1155,7 +1173,7 @@
         name: f.name.value, email: f.email.value, relationship: f.relationship.value, needs: f.needs.value
       });
       f.reset();
-      document.getElementById("intake-note").hidden = false;
+      document.getElementById("received").hidden = false;
     });
     async function sendMail(subject, fields) {
       const res = await fetch("https://formsubmit.co/ajax/whimsyandweeds@gmail.com", {
