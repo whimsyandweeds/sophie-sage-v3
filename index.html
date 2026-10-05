@@ -382,10 +382,11 @@
     .path { margin-top: 54px; color: #8a847c; letter-spacing: 0.14em; font-size: 12px; }
     .dash { height: 28px; border-bottom: 1.5px dashed #ddd4cc; width: 140px; margin-bottom: 8px; }
 
-    .refer-page .close { background: transparent; box-shadow: none; border: 0; padding: 0; }
-    .refer-page h2 { font-family: Fraunces, serif; color: #5f6b52; font-size: 28px; max-width: none; }
+    .refer-page .close { background: transparent !important; box-shadow: none !important; border: 0 !important; padding: 0 !important; gap: 28px; }
+    .refer-card { background: rgba(255,252,248,0.94); border-radius: 22px; padding: 22px 18px; }
     .check-list { list-style: none; padding: 0; margin: 16px 0; }
-    .check-list li { margin: 12px 0; font-size: 14px; }
+    .check-list li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; margin: 14px 0; font-size: 14px; }
+    .check-list li::before { content: "✓"; width: 22px; height: 22px; border-radius: 50%; background: #6f7d62; color: #fff; display: grid; place-items: center; font-size: 12px; margin-top: 2px; }
     .check-list strong { display: block; }
     .intake { background: rgba(255,252,248,0.9); border-radius: 18px; padding: 18px; }
     .intake label { display: block; font-size: 13px; margin: 10px 0 4px; }
@@ -856,7 +857,7 @@
             </ul>
             <p>All referrals handled with trauma-informed care & strict confidentiality.</p>
           </div>
-          <form class="intake" id="intake-form">
+          <form class="intake refer-card" id="intake-form">
             <h2>Secure Referral Intake Form</h2>
             <label for="ref-name">Referrer Name</label>
             <input id="ref-name" name="name" placeholder="Full name" required />
