@@ -431,7 +431,11 @@
       width: 32px; height: 32px; border-radius: 50%; background: #f6f1ea;
       display: grid; place-items: center; font-style: normal;
     }
-    footer img { width: 54px; height: 54px; object-fit: contain; display: block; }
+    footer {
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center;
+      padding: 22px 8px 48px; color: #8a847c; font-size: 12px; letter-spacing: 0.08em;
+    }
+    footer img { width: 54px; height: 54px; object-fit: contain; display: block; margin-top: 6px; }
       display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
       padding: 22px 8px 48px; color: #8a847c; font-size: 12px; letter-spacing: 0.08em;
     }
