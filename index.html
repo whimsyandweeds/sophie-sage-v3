@@ -287,6 +287,12 @@
       box-shadow: var(--shadow);
       min-height: 280px;
     }
+    .zone, .tier, .refer-card, .budget-card, .how-note { position: relative; overflow: hidden; }
+    .zone::before, .tier::before, .refer-card::before, .budget-card::before, .how-note::before {
+      content: "";
+      position: absolute; left: 0; right: 0; top: 0; height: 8px;
+      background: url("sage-accent.jpg?v=1") center / cover;
+    }
     .zone.b { background: rgba(239, 230, 246, 0.92); }
     .zone.c { background: rgba(231, 240, 227, 0.92); }
     .zone-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
