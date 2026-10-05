@@ -243,7 +243,22 @@
     }
     .sub { max-width: 560px; color: #4a463f; line-height: 1.55; margin: 0 0 28px; }
 
-    .zones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .zones-page { text-align: center; padding-top: 48px; }
+    .zones-page h2 {
+      margin: 0 auto 16px; max-width: 16ch; color: #5f6b52;
+      font-family: Fraunces, serif; font-weight: 500; font-size: clamp(40px, 5vw, 64px);
+    }
+    .zones-page .sub { margin: 0 auto 28px; max-width: 760px; color: #2c2a27; }
+    .zones-page .zones { text-align: center; }
+    .zones-page .zone {
+      background: rgba(255,252,248,0.88); box-shadow: 0 10px 24px rgba(80,60,40,0.06);
+      border: 0; min-height: 0;
+    }
+    .zones-page .zone h3 { font-family: Fraunces, serif; color: #5f6b52; font-weight: 500; }
+    .zones-page .mark-icon { font-size: 22px; color: #7d8b6e; margin-bottom: 8px; }
+    .zones-page .exit-row { display: flex; gap: 16px; justify-content: center; align-items: center; margin-top: 26px; flex-wrap: wrap; }
+    .zones-page .exit-btn { background: #6f7d62; color: #fff; border-radius: 10px; padding: 12px 22px; }
+    .zones-page .quiet { color: #3c3935; font-size: 14px; }
     .zone {
       background: rgba(255,252,248,0.9);
       border-radius: 26px;
@@ -647,36 +662,30 @@
       <a class="skip" href="#pricing">Or view pricing & safe intake</a>
     </section>
 
-    <section class="page" id="reality">
+    <section class="page zones-page" id="reality">
       <div class="wrap">
-        <span class="label">02 · THE REALITY</span>
-        <h2>The clarity is here, the housing is next.</h2>
-        <p class="sub">You do the work only you can do. We take the operational load that stalls the exit — the boring-but-critical 20+ hours that shouldn’t live on your plate or hers.</p>
+        <h2>Your client is ready to transition.</h2>
+        <p class="sub">We handle the boring-but-critical logistics grind—so your client can focus on healing, safety, and what comes next. Discreet, referral-only coordination for transitions, moves, and sensitive exits. No upsells. Just a flat fee. Clear steps. Calm support.</p>
         <div class="zones">
           <article class="zone">
-            <div class="zone-top">
-              <span class="icon-bubble" aria-hidden="true">🫶</span>
-              <span class="zone-tag">YOUR ZONE</span>
-            </div>
-            <h3><span class="num">01</span> You keep the container</h3>
-            <p>No coaching overlap. No legal advice. No advocacy replacement. White-label updates if you want credit in the room. We stay behind the curtain.</p>
+            <div class="mark-icon" aria-hidden="true">⌖</div>
+            <h3>Your Zone</h3>
+            <p>Prep, boundaries, and communication. We align with your client care plan and timeline. Clear handoff, no surprises.</p>
           </article>
-          <article class="zone b">
-            <div class="zone-top">
-              <span class="icon-bubble" aria-hidden="true">🧹</span>
-              <span class="zone-tag">OUR ZONE</span>
-            </div>
-            <h3><span class="num">02</span> We keep the friction</h3>
-            <p>Private housing search, utilities + DV waivers, movers + storage, doc checklist, credit triage. The unsexy stuff that actually gets her housed.</p>
+          <article class="zone">
+            <div class="mark-icon" aria-hidden="true">🙌</div>
+            <h3>Our Zone</h3>
+            <p>We manage the detail. Vendors, scheduling, supplies, paperwork. We coordinate logistics end-to-end, quietly and respectfully.</p>
           </article>
-          <article class="zone c">
-            <div class="zone-top">
-              <span class="icon-bubble" aria-hidden="true">🪴</span>
-              <span class="zone-tag">HER SAFETY</span>
-            </div>
-            <h3><span class="num">03</span> She keeps her safety</h3>
-            <p>Zero-footprint by default. Signal / Proton. Third-Party Designee. We never contact her without safe-channel consent. Privacy is the product.</p>
+          <article class="zone">
+            <div class="mark-icon" aria-hidden="true">♡</div>
+            <h3>Her Safety</h3>
+            <p>Trauma-informed, confidential, and safety-first. Protocols for privacy, consent, and dignity at every step.</p>
           </article>
+        </div>
+        <div class="exit-row">
+          <a class="btn exit-btn" href="#pricing">Get the Exit Plan</a>
+          <span class="quiet">For trusted referrers only · Inquire anonymously</span>
         </div>
       </div>
     </section>
