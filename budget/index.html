@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="referrer" content="no-referrer" />
+<title>Sophie + Sage · Budget Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&family=Sora:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --sage: #748969;
+    --deep: #4A5A4E;
+    --cream: #F9F7F2;
+    --paper: #F5F1EB;
+    --ink: #2B2B24;
+    --mist: #E8EBE0;
+    --haze: #C5B7D4;
+    --line: rgba(74, 90, 78, 0.16);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: "Instrument Sans", "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.5;
+  }
+  button, input, select { font-family: inherit; color: inherit; }
+  .bar {
+    background: var(--deep);
+    color: #f7f4ee;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 22px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+  .bar a { color: #f3eadc; }
+  .leave {
+    background: transparent;
+    color: #f7f4ee;
+    border: 1px solid rgba(247,244,238,.45);
+    border-radius: 999px;
+    padding: 7px 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-family: Sora, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  header.brand {
+    background: var(--deep);
+    color: #f4f1ea;
+    padding: 22px 28px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  header.brand::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: .16;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='92' height='92' viewBox='0 0 92 92'><g fill='none' stroke='%23d7e0d2' stroke-width='1.4'><circle cx='46' cy='46' r='18'/><path d='M34 50c2-8 8-12 12-8 2 2 2 6-1 9-4 4-9 3-11-1zM30 42c3-2 7-1 8 2'/><path d='M52 38c6 1 12 6 12 12s-6 11-12 10c-4-1-6-4-5-7 1-4 5-6 5-6'/><path d='M58 52c4 1 8 5 7 9-1 3-5 4-8 2'/></g></svg>");
+    background-size: 92px 92px;
+    pointer-events: none;
+  }
+  .word {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: Sora, sans-serif;
+    font-weight: 300;
+    letter-spacing: .22em;
+    font-size: 18px;
+  }
+  .tool-name {
+    position: relative;
+    font-family: Sora, sans-serif;
+    font-weight: 300;
+    letter-spacing: .2em;
+    font-size: 13px;
+  }
+  main { max-width: 1120px; margin: 0 auto; padding: 28px 20px 48px; }
+  .kicker {
+    font-family: Sora, sans-serif;
+    font-weight: 300;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--deep);
+    font-size: 13px;
+    text-align: center;
+  }
+  .sprig { text-align: center; color: var(--sage); letter-spacing: .4em; margin: 8px 0 18px; font-size: 12px; }
+  h1 {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-weight: 400;
+    text-align: center;
+    font-size: clamp(34px, 5vw, 52px);
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .intro { text-align: center; max-width: 680px; margin: 0 auto 22px; color: #4e564c; }
+  .layout { display: grid; grid-template-columns: 1.05fr .95fr; gap: 18px; }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .tool-name { display: none; }
+  }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px;
+  }
+  h2 {
+    font-family: Sora, sans-serif;
+    font-weight: 300;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin: 0 0 6px;
+    color: var(--deep);
+  }
+  .sub { margin: 0 0 14px; color: #5d655c; font-size: 14px; }
+  label.field {
+    display: block;
+    margin-top: 12px;
+    font-family: Sora, sans-serif;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .split3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .split, .split3 { grid-template-columns: 1fr; } }
+  .inset {
+    margin-top: 6px;
+    background: #fffcf8;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  input, select {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    font-size: 16px;
+    padding: 2px 0;
+    outline: none;
+  }
+  .inset:focus-within { box-shadow: 0 0 0 3px rgba(116, 137, 105, .25); }
+  .checks { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .check {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: var(--mist); border-radius: 12px; padding: 10px 12px; font-size: 14px;
+  }
+  .check input { width: auto; margin-top: 3px; accent-color: var(--sage); }
+  .place { min-height: 1.2em; color: var(--sage); font-size: 14px; margin-top: 8px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+  .pill {
+    border-radius: 999px;
+    padding: 8px 14px;
+    border: 1px solid var(--sage);
+    background: transparent;
+    color: var(--deep);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-family: Sora, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .pill.on { background: var(--sage); color: #f7f4ee; border-color: var(--sage); }
+  .pill.haze.on { background: var(--haze); border-color: var(--haze); color: #2b2b24; }
+  .ticket {
+    border: 1px solid rgba(74, 90, 78, .35);
+    border-radius: 8px;
+    padding: 8px;
+    background:
+      linear-gradient(var(--paper), var(--paper)) padding-box,
+      repeating-linear-gradient(90deg, transparent, transparent 7px, rgba(74,90,78,.35) 7px, rgba(74,90,78,.35) 9px) border-box;
+  }
+  .ticket inner, .ticket-in {
+    border: 1px solid rgba(74, 90, 78, .28);
+    border-radius: 4px;
+    padding: 16px 16px 14px;
+    text-align: center;
+  }
+  .ticket-in span {
+    font-family: Sora, sans-serif;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--deep);
+  }
+  .amount {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 48px;
+    line-height: 1.1;
+    margin: 6px 0 4px;
+  }
+  .fine { font-size: 13px; color: #5d655c; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  td { padding: 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td.num { text-align: right; font-family: "Instrument Serif", Georgia, serif; font-size: 18px; white-space: nowrap; }
+  .section-label {
+    font-family: Sora, sans-serif;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--sage);
+    padding-top: 12px;
+  }
+  .muted { color: #6d756c; font-size: 12.5px; }
+  .waived { color: var(--sage); }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .btn {
+    border: 0; border-radius: 999px; padding: 10px 14px; cursor: pointer;
+    background: var(--deep); color: #f7f4ee;
+    font-family: Sora, sans-serif; letter-spacing: .08em; text-transform: uppercase; font-size: 11px;
+  }
+  .btn.ghost { background: transparent; color: var(--deep); border: 1px solid var(--line); }
+  .help-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 860px) { .help-grid, .pair { grid-template-columns: 1fr; } }
+  .help {
+    background: #fffcf8;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .help h3 { margin: 4px 0; font-size: 16px; font-weight: 600; }
+  .help p { margin: 0; color: #4e564c; font-size: 14px; }
+  .tag {
+    font-family: Sora, sans-serif;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: var(--sage);
+  }
+  .script {
+    margin-top: 14px;
+    background: var(--mist);
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  footer {
+    background: var(--deep);
+    color: #f4f1ea;
+    text-align: center;
+    padding: 22px 16px;
+    font-family: Sora, sans-serif;
+    font-weight: 300;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  .legal {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 14px 20px 28px;
+    color: #6d756c;
+    font-size: 12.5px;
+    text-align: center;
+  }
+  @media print { .bar, .actions, .leave, footer { display: none !important; } }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <div>If you are in danger, call 911 when it is safe. Hotline <a href="tel:18007997233">1-800-799-7233</a> · text START to 88788 · <a href="https://www.thehotline.org" target="_blank" rel="noopener noreferrer">thehotline.org</a></div>
+    <button class="leave" id="exitBtn" type="button">Leave this page</button>
+  </div>
+  <header class="brand">
+    <div class="word">
+      <svg width="42" height="42" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="34" fill="none" stroke="#E8EBE0" stroke-width="2.4"/>
+        <path d="M24 48c1-14 12-22 18-16 3 3 2 9-2 13-6 6-14 4-16 3z" fill="#E8EBE0"/>
+        <path d="M22 36c6-2 10 1 11 5" fill="none" stroke="#E8EBE0" stroke-width="2"/>
+        <path d="M46 28c8 0 16 6 16 15s-7 15-16 14c-6-1-9-6-7-10 2-5 7-7 7-7" fill="none" stroke="#E8EBE0" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M50 46c6 1 11 5 10 10-1 4-6 5-10 3" fill="none" stroke="#E8EBE0" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      SOPHIE + SAGE
+    </div>
+    <div class="tool-name">BUDGET TOOL</div>
+  </header>
+  <main>
+    <div class="kicker">30 / 60 / 90-day survival budget</div>
+    <div class="sprig">——— ❧ ———</div>
+    <h1>A calm number before the move.</h1>
+    <p class="intro">For women leaving without a shelter stay. Type a ZIP code and the home you need. Nothing you type is saved. The ZIP lookup only asks a public directory for city and state.</p>
+    <div class="layout">
+      <section class="card">
+        <h2>The home</h2>
+        <p class="sub">Soft estimates from state fair-market rents, then adjusted for bedrooms and area. Confirm with two or three real listings.</p>
+        <div class="split">
+          <div>
+            <label class="field" for="zip">ZIP code</label>
+            <div class="inset"><input id="zip" inputmode="numeric" maxlength="10" placeholder="30312" /></div>
+          </div>
+          <div>
+            <label class="field" for="state">State</label>
+            <div class="inset"><select id="state"></select></div>
+          </div>
+        </div>
+        <div class="place" id="place">City and state will show here.</div>
+        <div class="split3">
+          <div>
+            <label class="field" for="beds">Bedrooms</label>
+            <div class="inset"><select id="beds"><option value="0">Studio</option><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+          </div>
+          <div>
+            <label class="field" for="baths">Bathrooms</label>
+            <div class="inset"><select id="baths"><option value="1" selected>1</option><option value="1.5">1.5</option><option value="2">2</option><option value="2.5">2.5</option><option value="3">3</option></select></div>
+          </div>
+          <div>
+            <label class="field" for="people">People</label>
+            <div class="inset"><select id="people"><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6+</option></select></div>
+          </div>
+        </div>
+        <div class="split">
+          <div>
+            <label class="field" for="area">Area type</label>
+            <div class="inset"><select id="area"><option value="0.86">Smaller town</option><option value="1" selected>Typical for the state</option><option value="1.16">Bigger city</option><option value="1.42">Very expensive city</option></select></div>
+          </div>
+          <div>
+            <label class="field" for="move">Move</label>
+            <div class="inset"><select id="move"><option value="friends">Borrowed truck and boxes</option><option value="diy" selected>Rental truck, all in</option><option value="movers">Local movers, all in</option><option value="long">Out-of-area movers</option></select></div>
+          </div>
+        </div>
+        <div class="split">
+          <div>
+            <label class="field" for="income">Monthly income you can count on</label>
+            <div class="inset"><input id="income" inputmode="decimal" placeholder="0" /></div>
+          </div>
+          <div>
+            <label class="field" for="hotel">Bridge hotel nights</label>
+            <div class="inset"><input id="hotel" inputmode="numeric" value="0" /></div>
+          </div>
+        </div>
+        <div class="checks">
+          <label class="check"><input type="checkbox" id="storage" /> Storage for a month</label>
+          <label class="check"><input type="checkbox" id="pets" /> Traveling with a pet</label>
+          <label class="check"><input type="checkbox" id="kids" /> Children, school, or childcare</label>
+          <label class="check"><input type="checkbox" id="waiver" checked /> Ask utilities to waive deposits</label>
+          <label class="check"><input type="checkbox" id="last" /> Landlord wants last month too</label>
+          <label class="check"><input type="checkbox" id="furniture" checked /> Starter kit and a lock change</label>
+          <label class="check"><input type="checkbox" id="foodOn" checked /> Include food and groceries</label>
+          <label class="check"><input type="checkbox" id="transitOn" checked /> Include transport</label>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Total summary</h2>
+        <p class="sub" id="resultLead">Add a ZIP code to build the budget.</p>
+        <div class="pills" id="pills">
+          <button class="pill on" type="button" data-cat="all">All</button>
+          <button class="pill" type="button" data-cat="housing">Housing</button>
+          <button class="pill haze" type="button" data-cat="move">Move</button>
+          <button class="pill" type="button" data-cat="utilities">Utilities</button>
+          <button class="pill" type="button" data-cat="living">Food & transport</button>
+        </div>
+        <div class="ticket">
+          <div class="ticket-in">
+            <span>Cash to start</span>
+            <div class="amount" id="startup">—</div>
+            <div class="fine" id="projection">30/60/90-day projection appears with the ZIP.</div>
+          </div>
+        </div>
+        <div class="pair" style="margin-top:12px">
+          <div class="ticket"><div class="ticket-in"><span>Each month</span><div class="amount" id="monthly" style="font-size:32px">—</div></div></div>
+          <div class="ticket"><div class="ticket-in"><span>Waiver savings</span><div class="amount" id="saved" style="font-size:32px">—</div></div></div>
+        </div>
+        <table id="table"></table>
+        <div class="actions">
+          <button class="btn" id="copyBtn" type="button">Copy summary</button>
+          <button class="btn ghost" id="printBtn" type="button">Print / save PDF</button>
+        </div>
+        <p class="fine" id="gapNote" style="margin-top:10px"></p>
+      </section>
+    </div>
+    <section class="card" style="margin-top:18px">
+      <h2>Help that does not require a shelter</h2>
+      <p class="sub" id="helpLead">Ask the state coalition for flexible funding, hotel nights, and rapid rehousing. Many programs pay the deposit and the truck so a shelter stay is not the only door.</p>
+      <div class="help-grid" id="helpGrid"></div>
+      <div class="script" id="script"></div>
+    </section>
+  </main>
+  <footer>Founder-led · Survivor-led · Trauma-informed · Confidential & compassionate support</footer>
+  <p class="legal">Sophie + Sage Logistics. Planning tool, not legal, housing, or financial advice. Estimates can miss a local market. Aid is not guaranteed. If a device is monitored, use a safer phone and the Leave this page button.</p>
+<script>
+const STATES = {
+  AL:{name:"Alabama",rent2:1170,u:1.05,coalition:"Alabama Coalition Against Domestic Violence",url:"https://www.acadv.org/",waiver:"ask"},
+  AK:{name:"Alaska",rent2:1519,u:1.25,coalition:"Alaska Network on Domestic Violence and Sexual Assault",url:"https://www.andvsa.org/",waiver:"ask"},
+  AZ:{name:"Arizona",rent2:1616,u:1.15,coalition:"Arizona Coalition to End Sexual and Domestic Violence",url:"https://www.acesdv.org/",waiver:"ask"},
+  AR:{name:"Arkansas",rent2:1061,u:1.0,coalition:"Arkansas Coalition Against Domestic Violence",url:"https://www.domesticpeace.com/",waiver:"ask"},
+  CA:{name:"California",rent2:2632,u:1.05,coalition:"California Partnership to End Domestic Violence",url:"https://www.cpedv.org/",waiver:"ask"},
+  CO:{name:"Colorado",rent2:1916,u:1.0,coalition:"Violence Free Colorado",url:"https://www.violencefreecolorado.org/",waiver:"ask"},
+  CT:{name:"Connecticut",rent2:2033,u:1.1,coalition:"Connecticut Coalition Against Domestic Violence",url:"https://www.ctcadv.org/",waiver:"ask"},
+  DE:{name:"Delaware",rent2:1727,u:1.05,coalition:"Delaware Coalition Against Domestic Violence",url:"https://dcadv.org/",waiver:"ask"},
+  DC:{name:"District of Columbia",rent2:2438,u:1.05,coalition:"DC Coalition Against Domestic Violence",url:"https://www.dccadv.org/",waiver:"ask"},
+  FL:{name:"Florida",rent2:1962,u:1.12,coalition:"Florida Partnership to End Domestic Violence",url:"https://www.fpedv.org/",waiver:"ask"},
+  GA:{name:"Georgia",rent2:1528,u:1.08,coalition:"Georgia Coalition Against Domestic Violence",url:"https://gcadv.org/",waiver:"ask"},
+  HI:{name:"Hawaii",rent2:2467,u:1.2,coalition:"Hawaiʻi State Coalition Against Domestic Violence",url:"https://www.hscadv.org/",waiver:"ask"},
+  ID:{name:"Idaho",rent2:1367,u:0.98,coalition:"Idaho Coalition Against Sexual & Domestic Violence",url:"https://idahocoalition.org/",waiver:"ask"},
+  IL:{name:"Illinois",rent2:1724,u:1.08,coalition:"Illinois Coalition Against Domestic Violence",url:"https://www.ilcadv.org/",waiver:"law"},
+  IN:{name:"Indiana",rent2:1302,u:1.02,coalition:"Indiana Coalition Against Domestic Violence",url:"https://www.icadvinc.org/",waiver:"ask"},
+  IA:{name:"Iowa",rent2:1113,u:1.02,coalition:"Iowa Coalition Against Domestic Violence",url:"https://www.icadv.org/",waiver:"ask"},
+  KS:{name:"Kansas",rent2:1212,u:1.02,coalition:"Kansas Coalition Against Sexual & Domestic Violence",url:"https://www.kcsdv.org/",waiver:"law"},
+  KY:{name:"Kentucky",rent2:1155,u:1.0,coalition:"ZeroV",url:"https://www.zerov.org/",waiver:"ask"},
+  LA:{name:"Louisiana",rent2:1161,u:1.1,coalition:"Louisiana Coalition Against Domestic Violence",url:"https://lcadv.org/",waiver:"law"},
+  ME:{name:"Maine",rent2:1714,u:1.15,coalition:"Maine Coalition to End Domestic Violence",url:"https://www.mcedv.org/",waiver:"ask"},
+  MD:{name:"Maryland",rent2:2103,u:1.05,coalition:"Maryland Network Against Domestic Violence",url:"https://mnadv.org/",waiver:"ask"},
+  MA:{name:"Massachusetts",rent2:2566,u:1.12,coalition:"Jane Doe Inc.",url:"https://www.janedoe.org/",waiver:"law"},
+  MI:{name:"Michigan",rent2:1361,u:1.08,coalition:"Michigan Coalition to End Domestic & Sexual Violence",url:"https://www.mcedsv.org/",waiver:"ask"},
+  MN:{name:"Minnesota",rent2:1507,u:1.1,coalition:"Violence Free Minnesota",url:"https://www.vfmn.org/",waiver:"ask"},
+  MS:{name:"Mississippi",rent2:1087,u:1.05,coalition:"Mississippi Coalition Against Domestic Violence",url:"https://mcadv.org/",waiver:"law"},
+  MO:{name:"Missouri",rent2:1250,u:1.02,coalition:"Missouri Coalition Against Domestic and Sexual Violence",url:"https://www.mocadsv.org/",waiver:"ask"},
+  MT:{name:"Montana",rent2:1529,u:1.05,coalition:"Montana Coalition Against Domestic & Sexual Violence",url:"https://mcadsv.com/",waiver:"ask"},
+  NE:{name:"Nebraska",rent2:1260,u:1.02,coalition:"Nebraska Coalition to End Sexual and Domestic Violence",url:"https://www.nebraskacoalition.org/",waiver:"ask"},
+  NV:{name:"Nevada",rent2:1672,u:1.1,coalition:"Nevada Coalition to End Domestic and Sexual Violence",url:"https://www.ncedsv.org/",waiver:"ask"},
+  NH:{name:"New Hampshire",rent2:2010,u:1.12,coalition:"New Hampshire Coalition Against Domestic & Sexual Violence",url:"https://www.nhcadsv.org/",waiver:"law"},
+  NJ:{name:"New Jersey",rent2:2268,u:1.08,coalition:"New Jersey Coalition to End Domestic Violence",url:"https://www.njcedv.org/",waiver:"ask"},
+  NM:{name:"New Mexico",rent2:1240,u:1.0,coalition:"New Mexico Coalition Against Domestic Violence",url:"https://www.nmcadv.org/",waiver:"ask"},
+  NY:{name:"New York",rent2:2140,u:1.12,coalition:"New York State Coalition Against Domestic Violence",url:"https://www.nyscadv.org/",waiver:"law"},
+  NC:{name:"North Carolina",rent2:1360,u:1.02,coalition:"North Carolina Coalition Against Domestic Violence",url:"https://nccadv.org/",waiver:"ask"},
+  ND:{name:"North Dakota",rent2:1120,u:1.12,coalition:"North Dakota Domestic & Sexual Violence Coalition",url:"https://nddsvc.org/",waiver:"ask"},
+  OH:{name:"Ohio",rent2:1240,u:1.04,coalition:"Ohio Domestic Violence Network",url:"https://www.odvn.org/",waiver:"ask"},
+  OK:{name:"Oklahoma",rent2:1140,u:1.02,coalition:"Oklahoma Coalition Against Domestic Violence and Sexual Assault",url:"https://www.ocadvsa.org/",waiver:"ask"},
+  OR:{name:"Oregon",rent2:1680,u:1.0,coalition:"Oregon Coalition Against Domestic & Sexual Violence",url:"https://www.ocadsv.org/",waiver:"ask"},
+  PA:{name:"Pennsylvania",rent2:1420,u:1.08,coalition:"Pennsylvania Coalition Against Domestic Violence",url:"https://www.pcadv.org/",waiver:"law"},
+  RI:{name:"Rhode Island",rent2:1760,u:1.1,coalition:"Rhode Island Coalition Against Domestic Violence",url:"https://www.ricadv.org/",waiver:"ask"},
+  SC:{name:"South Carolina",rent2:1310,u:1.05,coalition:"South Carolina Coalition Against Domestic Violence and Sexual Assault",url:"https://www.sccadvasa.org/",waiver:"ask"},
+  SD:{name:"South Dakota",rent2:1080,u:1.08,coalition:"South Dakota Network Against Family Violence and Sexual Assault",url:"https://www.sdnafvsa.com/",waiver:"ask"},
+  TN:{name:"Tennessee",rent2:1320,u:1.02,coalition:"Tennessee Coalition to End Domestic & Sexual Violence",url:"https://www.tncoalition.org/",waiver:"ask"},
+  TX:{name:"Texas",rent2:1480,u:1.1,coalition:"Texas Council on Family Violence",url:"https://tcfv.org/",waiver:"law"},
+  UT:{name:"Utah",rent2:1460,u:0.98,coalition:"Utah Domestic Violence Coalition",url:"https://udvc.org/",waiver:"ask"},
+  VT:{name:"Vermont",rent2:1540,u:1.12,coalition:"Vermont Network Against Domestic and Sexual Violence",url:"https://vtnetwork.org/",waiver:"ask"},
+  VA:{name:"Virginia",rent2:1640,u:1.04,coalition:"Virginia Sexual and Domestic Violence Action Alliance",url:"https://www.vsdvalliance.org/",waiver:"law"},
+  WA:{name:"Washington",rent2:1960,u:1.0,coalition:"Washington State Coalition Against Domestic Violence",url:"https://wscadv.org/",waiver:"ask"},
+  WV:{name:"West Virginia",rent2:1039,u:1.02,coalition:"West Virginia Coalition Against Domestic Violence",url:"https://wvcadv.org/",waiver:"ask"},
+  WI:{name:"Wisconsin",rent2:1280,u:1.08,coalition:"End Domestic Abuse Wisconsin",url:"https://www.endabusewi.org/",waiver:"ask"},
+  WY:{name:"Wyoming",rent2:1180,u:1.05,coalition:"Wyoming Coalition Against Domestic Violence & Sexual Assault",url:"https://www.wyomingdvsa.org/",waiver:"ask"}
+};
+const BED = {0:0.70,1:0.82,2:1,3:1.30,4:1.58,5:1.80};
+const money = n => n.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
+const $ = id => document.getElementById(id);
+let placeLabel = "", resolved = "", cat = "all", lastRows = [];
+$("state").innerHTML = '<option value="">Select state</option>' + Object.entries(STATES).map(([k,v]) => `<option value="${k}">${v.name}</option>`).join("");
+
+async function lookupZip() {
+  const zip = $("zip").value.replace(/\D/g,"").slice(0,5);
+  if (zip.length !== 5) { placeLabel = ""; $("place").textContent = "City and state will show here."; calc(); return; }
+  $("place").textContent = "Looking up ZIP…";
+  try {
+    const res = await fetch("https://api.zippopotam.us/us/" + zip);
+    if (!res.ok) throw new Error("miss");
+    const data = await res.json();
+    const p = data.places && data.places[0];
+    if (!p) throw new Error("miss");
+    resolved = p["state abbreviation"];
+    placeLabel = p["place name"] + ", " + resolved;
+    $("state").value = resolved;
+    $("place").textContent = placeLabel + " · state average, adjusted by area type.";
+  } catch (e) {
+    placeLabel = "";
+    $("place").textContent = "Could not resolve that ZIP. Pick the state and the estimate still runs.";
+  }
+  calc();
+}
+function calc() {
+  const st = $("state").value || resolved;
+  const info = STATES[st];
+  if (!info) {
+    $("startup").textContent = "—"; $("monthly").textContent = "—"; $("saved").textContent = "—";
+    $("table").innerHTML = ""; $("resultLead").textContent = "Add a ZIP code or choose a state.";
+    $("projection").textContent = "30/60/90-day projection appears with the ZIP.";
+    $("gapNote").textContent = ""; renderHelp(null); return;
+  }
+  const beds = Number($("beds").value), baths = Number($("baths").value), people = Number($("people").value);
+  const area = Number($("area").value), move = $("move").value;
+  const income = Number($("income").value) || 0;
+  const hotelNights = Math.max(0, Number($("hotel").value) || 0);
+  const waiver = $("waiver").checked, last = $("last").checked;
+  const rent = Math.round(info.rent2 * BED[beds] * area * (1 + Math.max(0, baths - 1) * 0.03));
+  const electric = Math.round((70 + beds * 28 + people * 12) * info.u);
+  const gas = Math.round((beds === 0 ? 25 : 40 + beds * 8) * (info.u > 1.06 ? 1.15 : 0.85));
+  const water = Math.round(38 + people * 12);
+  const internet = 70, insurance = 18 + beds * 4;
+  const food = $("foodOn").checked ? 280 + Math.max(0, people - 1) * 160 : 0;
+  const transit = $("transitOn").checked ? 120 + (people > 2 ? 40 : 0) : 0;
+  const monthly = rent + electric + gas + water + internet + insurance + food + transit;
+  const elecDep = Math.round(140 + beds * 35), gasDep = Math.round(70 + beds * 15), waterDep = 60;
+  const depTotal = elecDep + gasDep + waterDep;
+  const depDue = waiver ? 0 : depTotal;
+  let moving = 180 + beds * 35, movingLabel = "Truck rental, fuel, and boxes";
+  if (move === "friends") { moving = 80 + beds * 20; movingLabel = "Boxes, tape, and fuel"; }
+  if (move === "movers") { moving = 700 + beds * 420; movingLabel = "Local movers, all in"; }
+  if (move === "long") { moving = 1800 + beds * 700; movingLabel = "Out-of-area movers, all in"; }
+  const storageFee = $("storage").checked ? 90 + beds * 35 : 0;
+  const petFee = $("pets").checked ? 350 : 0;
+  const hotel = hotelNights * 115;
+  const kit = $("furniture").checked ? 280 + beds * 160 + 75 : 75;
+  const school = $("kids").checked ? 150 : 0;
+  const startup = rent + rent + (last ? rent : 0) + 250 + depDue + moving + storageFee + petFee + hotel + kit + school + 40;
+  const where = placeLabel || info.name;
+  $("resultLead").textContent = where + " · " + (beds === 0 ? "studio" : beds + " bedroom") + ", " + baths + " bath.";
+  $("startup").textContent = money(startup);
+  $("monthly").textContent = money(monthly);
+  $("saved").textContent = waiver ? money(depTotal) : money(0);
+  $("projection").textContent = "30 days " + money(startup + monthly) + " · 60 days " + money(startup + monthly * 2) + " · 90 days " + money(startup + monthly * 3);
+  lastRows = [
+    {cat:"housing", label:"First month’s rent", amount:rent, note:"Due before keys"},
+    {cat:"housing", label:"Security deposit", amount:rent, note:"Often one month. Some states cap this."},
+    ...(last ? [{cat:"housing", label:"Last month’s rent", amount:rent, note:"Only if required"}] : []),
+    {cat:"housing", label:"Applications and admin", amount:250, note:"Two applications, plus a small buffer"},
+    {cat:"utilities", label:"Utility deposits", amount:depDue, note:waiver ? "Asked as a waiver. Without it, about " + money(depTotal) + "." : "Ask for a waiver before you pay."},
+    {cat:"move", label:movingLabel, amount:moving, note:"Boxes included."},
+    ...(storageFee ? [{cat:"move", label:"One month of storage", amount:storageFee, note:"Interim unit"}] : []),
+    ...(petFee ? [{cat:"move", label:"Pet deposit or boarding", amount:petFee, note:"Confirm pet rules."}] : []),
+    ...(hotel ? [{cat:"move", label:"Bridge hotel", amount:hotel, note:hotelNights + " nights"}] : []),
+    {cat:"move", label:"Starter kit and lock change", amount:kit, note:"Bed or air mattress, linens, kitchen, locks if allowed"},
+    ...(school ? [{cat:"living", label:"School and childcare buffer", amount:school, note:"Records, a few days of care"}] : []),
+    {cat:"move", label:"New phone line", amount:40, note:"Leave a shared plan if it can be tracked"},
+    {cat:"housing", label:"Monthly rent", amount:rent, note:"Repeats", monthly:true},
+    {cat:"utilities", label:"Electric", amount:electric, note:"Climate-adjusted", monthly:true},
+    {cat:"utilities", label:"Gas", amount:gas, note:"Lower if the building is all-electric", monthly:true},
+    {cat:"utilities", label:"Water, sewer, trash", amount:water, note:"Sometimes in the rent", monthly:true},
+    {cat:"utilities", label:"Internet", amount:internet, note:"", monthly:true},
+    {cat:"housing", label:"Renters insurance", amount:insurance, note:"Often required", monthly:true},
+    ...(food ? [{cat:"living", label:"Food and groceries", amount:food, note:"Modest plan", monthly:true}] : []),
+    ...(transit ? [{cat:"living", label:"Transport", amount:transit, note:"Bus, gas, or rides", monthly:true}] : [])
+  ];
+  paint();
+  if (income > 0) {
+    const gap = monthly - income;
+    $("gapNote").textContent = gap > 0
+      ? "Monthly costs sit about " + money(gap) + " above the income you entered. That is the gap rapid rehousing is built to cover."
+      : "Monthly costs fit the income you entered, with about " + money(income - monthly) + " left before debt. The startup number is still the hard part.";
+  } else $("gapNote").textContent = "Add income if you want a gap number.";
+  renderHelp(info);
+  window.__summary = {where, beds, startup, monthly, info, depTotal};
+}
+function paint() {
+  const shown = lastRows.filter(r => cat === "all" || r.cat === cat);
+  const start = shown.filter(r => !r.monthly);
+  const month = shown.filter(r => r.monthly);
+  const row = r => `<tr><td>${r.label}<div class="muted">${r.note || ""}</div></td><td class="num ${r.amount === 0 ? "waived" : ""}">${money(r.amount)}</td></tr>`;
+  $("table").innerHTML =
+    (start.length ? `<tr><td class="section-label" colspan="2">Move-in cash</td></tr>` + start.map(row).join("") : "") +
+    (month.length ? `<tr><td class="section-label" colspan="2">Each month</td></tr>` + month.map(row).join("") : "");
+}
+function renderHelp(info) {
+  if (!info) { $("helpGrid").innerHTML = ""; $("script").innerHTML = ""; return; }
+  const waiverNote = info.waiver === "law"
+    ? info.name + " has a written utility protection for survivors. Bring a letter from an advocate, clinician, or law enforcement. You usually do not have to share details."
+    : "Ask anyway. Many utilities waive deposits with a program letter or a LIHEAP award. Texas, Illinois, Louisiana, Massachusetts, Mississippi, New Hampshire, Pennsylvania, Virginia, Kansas, and New York have a specific rule.";
+  const cards = [
+    ["Start here", info.coalition, `Say you are fleeing and need housing funds without a shelter bed. <a href="${info.url}" target="_blank" rel="noopener noreferrer">Open their site</a>.`],
+    ["Also call", "211 and the Hotline", `211 knows local rental and utility funds. The Hotline can connect you: 1-800-799-7233.`],
+    ["Deposits and rent", "Rapid rehousing", "Local programs can pay the deposit, the truck, utility hookup, and rent for a stretch of months. You do not have to live in a shelter first if you are fleeing."],
+    ["Utility waiver", "A clean account", waiverNote + ` Also apply for <a href="https://liheapch.acf.gov/" target="_blank" rel="noopener noreferrer">LIHEAP</a>.`],
+    ["Relocation", "Victim compensation", `Search “${info.name} victim compensation,” or ask the coalition to file with you.`],
+    ["Quiet address", "Address confidentiality", `Most states offer a substitute mailing address. Do not file a public change of address to the new home.`]
+  ];
+  $("helpGrid").innerHTML = cards.map(c => `<article class="help"><div class="tag">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></article>`).join("");
+  $("script").innerHTML = `<strong>What to say:</strong> “I am leaving a violent relationship and I am not going to a shelter. I need help with a deposit, utility hookup, a few hotel nights if needed, and rent until I am stable. Can you do flexible funding or rapid rehousing? I also need a letter for a utility deposit waiver.”`;
+}
+["zip","state","beds","baths","people","area","move","income","hotel","storage","pets","kids","waiver","last","furniture","foodOn","transitOn"].forEach(id => {
+  $(id).addEventListener("input", id === "zip" ? lookupZip : calc);
+  $(id).addEventListener("change", id === "zip" ? lookupZip : calc);
+});
+document.getElementById("pills").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  cat = b.dataset.cat;
+  document.querySelectorAll(".pill").forEach(p => p.classList.toggle("on", p === b));
+  paint();
+});
+$("exitBtn").addEventListener("click", () => { window.location.replace("https://www.weather.gov"); });
+$("printBtn").addEventListener("click", () => window.print());
+$("copyBtn").addEventListener("click", async () => {
+  const s = window.__summary; if (!s) return;
+  const text = `Sophie + Sage budget tool\n${s.where}\nCash to start: ${money(s.startup)}\nEach month: ${money(s.monthly)}\nAsk ${s.info.coalition} about flexible funding, rapid rehousing, and a utility deposit waiver.\nHotline 1-800-799-7233`;
+  try { await navigator.clipboard.writeText(text); $("copyBtn").textContent = "Copied"; }
+  catch (e) { $("copyBtn").textContent = "Copy blocked"; }
+  setTimeout(() => { $("copyBtn").textContent = "Copy summary"; }, 1400);
+});
+calc();
+</script>
+</body>
+</html>
