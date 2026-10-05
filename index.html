@@ -468,8 +468,12 @@
     }
     .menu-panel, .desk-panel { position: relative; }
     .nudge { position: fixed; }
+    .m-break { display: none; }
     @media (max-width: 700px) {
-      .nudge { top: 72px; right: 12px; left: auto; width: 88px; }
+      .m-break { display: inline; }
+      .nudge { top: 78px; right: 22px; left: auto; width: 84px; }
+      .page.land { padding-top: 14vh; }
+      .land .go { margin-top: 18vh; }
     }
     .nudge img { width: 36px; height: 36px; object-fit: contain; display: block; margin-bottom: 8px; }
     .nudge button {
@@ -743,7 +747,7 @@
 
   <main>
     <section class="page land" id="top">
-      <h1>She is ready to leave. The logistics are not.</h1>
+      <h1>She is ready to leave. <br class="m-break">The logistics are not.</h1>
       <a class="btn go" href="#how">See the Logistics-to-Stabilized Handoff <span aria-hidden="true">→</span></a>
       <a class="skip" href="#pricing">Or view pricing & safe intake</a>
     </section>
