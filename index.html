@@ -783,6 +783,7 @@
     <strong>Received</strong>
     <p>We reply on the channel you named.</p>
   </div>
+  <div class="nudge" id="nudge">
     <button class="x" id="nudge-close" type="button" aria-label="Close">×</button>
     <svg class="doc" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="none" stroke="#6f7d62" stroke-width="1.7" d="M7 3.5h7l4 4V20.5H7z"/><path fill="none" stroke="#6f7d62" stroke-width="1.7" d="M14 3.5v4h4"/><path fill="none" stroke="#6f7d62" stroke-width="1.7" d="M9.5 12h5M9.5 15.5h5"/></svg>
     <p>free</p>
@@ -1091,8 +1092,7 @@
       link.addEventListener("click", () => { menuPanel.hidden = true; menuBtn.setAttribute("aria-expanded", "false"); });
     });
     const nudge = document.getElementById("nudge");
-    function hideNudge() { nudge.hidden = true; sessionStorage.setItem("sage-nudge", "1"); }
-    if (sessionStorage.getItem("sage-nudge")) nudge.hidden = true;
+    function hideNudge() { nudge.hidden = true; }
     document.getElementById("received-close").addEventListener("click", () => {
       document.getElementById("received").hidden = true;
     });
