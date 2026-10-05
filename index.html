@@ -353,7 +353,12 @@
       clip-path: polygon(2% 1%, 8% 0, 18% 2%, 32% 0, 48% 1.5%, 63% 0, 78% 2%, 90% 0, 98% 2%, 100% 8%, 98% 22%, 100% 40%, 99% 58%, 100% 76%, 98% 92%, 100% 99%, 86% 100%, 70% 98%, 52% 100%, 34% 98%, 16% 100%, 2% 98%, 0 88%, 1.5% 70%, 0 52%, 1.5% 34%, 0 16%);
       transform: rotate(-0.4deg);
     }
-    .how-note h2 { color: #5f6b52; font-family: Fraunces, serif; font-weight: 500; }
+    .how-still {
+      width: min(220px, 100%); height: 150px; object-fit: cover; object-position: 40% 55%;
+      border-radius: 14px; margin: 8px 0 16px;
+      box-shadow: 0 10px 22px rgba(80,60,40,0.12);
+      transform: rotate(-1.2deg);
+    }
     .how-chip { display: inline-block; background: #6f7d62; color: #fff; border-radius: 999px; padding: 6px 12px; font-size: 12px; letter-spacing: 0.06em; }
     .how-page .step { background: rgba(255,252,248,0.94); border: 0; box-shadow: 0 8px 18px rgba(80,60,40,0.05); }
     .how-page .icon-bubble { background: #e7efe4; width: 44px; height: 44px; font-size: 20px; }
@@ -829,6 +834,7 @@
             <span class="how-chip">04 · HOW IT WORKS</span>
             <h2 style="margin-top:18px">Let’s make exit executable.</h2>
             <p class="sub">Your client has done the hardest part — deciding to leave. We handle the rest, safely and discreetly. You stay in genius.</p>
+            <img class="how-still" src="signal-shred.webp" alt="A phone and a shredder on linen." />
             <div class="dash" aria-hidden="true"></div>
             <div class="path">YOU — US — HOUSED</div>
           </div>
