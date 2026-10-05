@@ -299,7 +299,20 @@
     .zone h3 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.03em; font-weight: 560; }
     .zone p { margin: 0; color: #514c46; line-height: 1.5; font-size: 15px; }
 
-    .fee-page { text-align: center; }
+    .budget-page { align-items: flex-start; overflow: auto; }
+    .budget-page .wrap { padding-bottom: 48px; }
+    .budget-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 16px; text-align: left; }
+    .budget-card { background: rgba(255,252,248,0.94); border: 1px solid #e4d8c4; border-radius: 18px; padding: 18px; }
+    .budget-card label { display: block; font-size: 12px; letter-spacing: 0.04em; color: #5e5a55; margin: 10px 0 4px; text-transform: none; }
+    .budget-card input, .budget-card select { width: 100%; border: 1px solid #c9c3ae; border-radius: 10px; padding: 10px; background: #fff; font-family: Inter, sans-serif; font-size: 14px; }
+    .budget-card .go { margin-top: 14px; background: #6f7d62; color: #fff; border: 0; border-radius: 10px; padding: 12px 16px; width: 100%; }
+    .budget-out h3 { margin: 14px 0 6px; font-size: 14px; }
+    .budget-out li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(28,27,25,0.08); font-size: 14px; }
+    .budget-out .total { font-weight: 600; }
+    .budget-note { font-size: 12px; line-height: 1.45; color: #5e5a55; margin: 10px 0 0; }
+    .help-list { margin: 0; padding: 0; list-style: none; }
+    .help-list li { display: block; padding: 8px 0; border-bottom: 1px solid rgba(28,27,25,0.08); font-size: 13px; line-height: 1.4; }
+    @media (max-width: 800px) { .budget-grid { grid-template-columns: 1fr; } }
     .fee-page h2 { margin: 0 auto 10px; color: #5f6b52; font-family: Fraunces, serif; font-weight: 500; max-width: none; }
     .fee-page .sub { margin: 0 auto 22px; }
     .fee-page .tiers { text-align: left; }
@@ -742,6 +755,7 @@
         <a href="#top">Top</a>
         <a href="#reality">The reality</a>
         <a href="#pricing">Pricing</a>
+        <a href="#budget">Budget</a>
         <a href="#how">How it works</a>
         <a href="#refer">Refer</a>
         <button class="sheets-toggle" id="sheets-toggle" type="button" aria-expanded="false" aria-controls="sheets">Free Information</button>
@@ -912,6 +926,45 @@
             <span><i>▭</i><b>Week 2–3</b>Movers Coordinated</span>
             <em>→</em>
             <span><i>♡</i><b>Handoff</b>Stabilized Handoff</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </section>
+
+    <section class="page budget-page" id="budget">
+      <div class="wrap">
+        <h2>Exit budget</h2>
+        <p class="sub">A planning range from the zip, not a quote. No name, no street, no case number. The zip stays in this browser.</p>
+        <div class="budget-grid">
+          <form class="budget-card" id="budget-form">
+            <label for="bud-zip">Zip code</label>
+            <input id="bud-zip" inputmode="numeric" maxlength="5" required placeholder="City zip, not the street" />
+            <label for="bud-beds">Bedrooms</label>
+            <select id="bud-beds"><option value="0">Studio</option><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
+            <label for="bud-baths">Bathrooms</label>
+            <select id="bud-baths"><option>1</option><option>1.5</option><option selected>2</option><option>3</option></select>
+            <label for="bud-people">People</label>
+            <select id="bud-people"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+            <label for="bud-pets">Pets</label>
+            <select id="bud-pets"><option value="0">No</option><option value="1">Yes</option></select>
+            <label for="bud-storage">Storage</label>
+            <select id="bud-storage"><option value="0">No</option><option value="1">Yes, one month</option></select>
+            <label for="bud-miles">Move distance</label>
+            <select id="bud-miles"><option value="25">Local, under 50 miles</option><option value="150">In state, 50–300</option><option value="600">Out of area, 300+</option></select>
+            <button class="go" type="submit">Build the range</button>
+            <p class="budget-note">Estimates use a public cost index for the state. A partner still confirms the unit, the waiver, and the grant.</p>
+          </form>
+          <div class="budget-card budget-out" id="budget-out" hidden>
+            <p id="bud-place"></p>
+            <h3>Move-in</h3>
+            <ul id="bud-once"></ul>
+            <h3>Each month</h3>
+            <ul id="bud-month"></ul>
+            <h3>Help that may apply</h3>
+            <ul class="help-list" id="bud-help"></ul>
+            <p class="budget-note">Not legal advice. Not a promise of a waiver or a grant. Sensitive details go to Signal or Proton, not this page.</p>
           </div>
         </div>
       </div>
@@ -1323,6 +1376,80 @@
   var head=document.querySelector("header");
   if(!head) return;
   var lock=false;
+    const rentIndex = { AL:.72,AK:1.15,AZ:1.05,AR:.68,CA:1.75,CO:1.28,CT:1.35,DE:1.1,DC:1.6,FL:1.18,GA:.95,HI:1.85,IA:.75,ID:.9,IL:1.05,IN:.78,KS:.75,KY:.74,LA:.8,MA:1.55,MD:1.25,ME:1.05,MI:.85,MN:1.05,MO:.8,MS:.68,MT:.95,NC:.95,ND:.8,NE:.8,NH:1.2,NJ:1.45,NM:.85,NV:1.15,NY:1.6,OH:.78,OK:.72,OR:1.25,PA:.95,RI:1.25,SC:.88,SD:.78,TN:.9,TX:.98,UT:1.1,VA:1.15,VT:1.1,WA:1.4,WI:.88,WV:.65,WY:.85 };
+    const utilIndex = { AK:1.4,HI:1.5,CA:1.15,NY:1.2,TX:1.1,FL:1.15,AZ:1.2,MA:1.25,WA:1.05 };
+    function money(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
+    function row(label, value) { return "<li><span>" + label + "</span><span>" + value + "</span></li>"; }
+    document.getElementById("budget-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const zip = document.getElementById("bud-zip").value.trim();
+      let place = "Zip " + zip;
+      let state = "US";
+      try {
+        const res = await fetch("https://api.zippopotam.us/us/" + zip);
+        if (res.ok) {
+          const data = await res.json();
+          place = data.places[0]["place name"] + ", " + data.places[0]["state abbreviation"];
+          state = data.places[0]["state abbreviation"];
+        }
+      } catch (e) {}
+      const beds = Number(document.getElementById("bud-beds").value);
+      const people = Number(document.getElementById("bud-people").value);
+      const pets = document.getElementById("bud-pets").value === "1";
+      const storage = document.getElementById("bud-storage").value === "1";
+      const miles = Number(document.getElementById("bud-miles").value);
+      const idx = rentIndex[state] || 1;
+      const uidx = utilIndex[state] || 1;
+      const base = [1100, 1450, 1800, 2250, 2700][beds];
+      const rent = base * idx;
+      const deposit = rent;
+      const petFee = pets ? 350 : 0;
+      const petRent = pets ? 40 : 0;
+      const electric = 110 * uidx + people * 15;
+      const gas = 45 * uidx;
+      const water = 55 + people * 12;
+      const internet = 70;
+      const utilDep = 180 * uidx;
+      const boxes = 45 + beds * 25;
+      const truck = miles < 50 ? 280 : miles < 200 ? 900 : 2200;
+      const movers = miles < 50 ? 450 + beds * 120 : 800 + beds * 200 + miles * 1.4;
+      const storageFee = storage ? 140 : 0;
+      const lock = 75;
+      const mail = 25;
+      const monthly = rent + petRent + electric + gas + water + internet + storageFee;
+      const once = deposit + petFee + utilDep + boxes + truck + movers + lock + mail;
+      document.getElementById("bud-place").textContent = place + " · planning range";
+      document.getElementById("bud-once").innerHTML = [
+        row("First month rent", money(rent)),
+        row("Housing deposit", money(deposit)),
+        row("Pet deposit", pets ? money(petFee) : "None"),
+        row("Utility deposits", money(utilDep)),
+        row("Boxes and supplies", money(boxes)),
+        row("Truck", money(truck)),
+        row("Movers", money(movers)),
+        row("Lock change and mail hold", money(lock + mail)),
+        row("Move-in total", money(once + rent))
+      ].join("");
+      document.getElementById("bud-month").innerHTML = [
+        row("Rent", money(rent)),
+        row("Electric", money(electric)),
+        row("Gas", money(gas)),
+        row("Water", money(water)),
+        row("Internet", money(internet)),
+        row("Pet rent", pets ? money(petRent) : "None"),
+        row("Storage", storage ? money(storageFee) : "None"),
+        row("Monthly total", money(monthly))
+      ].join("");
+      document.getElementById("bud-help").innerHTML = [
+        "<li>Crime Victim Compensation in " + state + ". Some states pay relocation, a deposit, or a lock change. The partner applies. She does not have to use a shelter.</li>",
+        "<li>VOCA victim-assistance flex funds through the state coalition. These can cover a truck, a deposit, or a hotel night without a shelter stay.</li>",
+        "<li>LIHEAP and a utility DV waiver. Many companies waive the deposit and pause shutoff with a partner letter, an affidavit, or a protective order.</li>",
+        "<li>TANF diversion or a one-time emergency grant. Ask the county for a non-recurring payment, not an ongoing case, if that is safer.</li>",
+        "<li>Emergency Solutions Grant money often requires a shelter or a literal-homelessness finding. Skip it if the goal is to skip the shelter.</li>",
+        "<li>211 and the state domestic-violence coalition for a local fund that pays first month and deposit. Confirm before she gives notice.</li>"
+      ].join("");
+      document.getElementById("budget-out").hidden = false;
+    });
   addEventListener("scroll", function(){
     if(lock) return;
     lock=true;
