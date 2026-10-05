@@ -339,7 +339,15 @@
       background: #fff; color: #1c1b19; border-radius: 999px; padding: 14px;
     }
 
-    .panel {
+    .how-page .panel { background: transparent; box-shadow: none; border: 0; padding: 0; align-items: stretch; }
+    .how-note {
+      background: rgba(255,252,248,0.92); border-radius: 6px; padding: 28px 24px;
+      box-shadow: 0 12px 28px rgba(80,60,40,0.08);
+    }
+    .how-note h2 { color: #5f6b52; font-family: Fraunces, serif; font-weight: 500; }
+    .how-chip { display: inline-block; background: #6f7d62; color: #fff; border-radius: 999px; padding: 6px 12px; font-size: 12px; letter-spacing: 0.06em; }
+    .how-page .step { background: rgba(255,252,248,0.94); border: 0; box-shadow: 0 8px 18px rgba(80,60,40,0.05); }
+    .how-page .icon-bubble { background: #e7efe4; }
       background: rgba(255,252,248,0.94);
       border-radius: 32px;
       box-shadow: var(--shadow);
@@ -763,11 +771,11 @@
       </div>
     </section>
 
-    <section class="page" id="how">
+    <section class="page how-page" id="how">
       <div class="wrap">
         <div class="panel">
-          <div>
-            <span class="chip-dark">04 · HOW IT WORKS</span>
+          <div class="how-note">
+            <span class="how-chip">04 · HOW IT WORKS</span>
             <h2 style="margin-top:18px">Let’s make exit executable.</h2>
             <p class="sub">Your client has done the hardest part — deciding to leave. We handle the rest, safely and discreetly. You stay in genius.</p>
             <div class="dash" aria-hidden="true"></div>
