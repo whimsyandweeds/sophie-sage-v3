@@ -281,7 +281,23 @@
     .zone h3 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.03em; font-weight: 560; }
     .zone p { margin: 0; color: #514c46; line-height: 1.5; font-size: 15px; }
 
-    .price-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; }
+    .fee-page { text-align: center; }
+    .fee-page h2 { margin: 0 auto 10px; color: #5f6b52; font-family: Fraunces, serif; font-weight: 500; max-width: none; }
+    .fee-page .sub { margin: 0 auto 22px; }
+    .fee-page .tiers { text-align: left; }
+    .fee-page .tier { background: rgba(255,252,248,0.9); color: #2c2a27; border: 1px solid #e4d8c4; }
+    .fee-page .tier.pick { border-color: #c4b48a; }
+    .fee-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .fee-page .tier h3 { margin: 0; font-size: 28px; }
+    .fee-page .price { font-size: 32px; color: #5f6b52; }
+    .pill-line { display: inline-block; margin: 10px 0 12px; background: #e7efe4; color: #5f6b52; border-radius: 999px; font-size: 11px; letter-spacing: 0.08em; padding: 5px 10px; }
+    .fee-page ul.checks { margin: 8px 0 0; }
+    .fee-page .most { background: #6f7d62; color: #fff; }
+    .timeline { margin-top: 28px; }
+    .timeline p { margin: 0 0 14px; letter-spacing: 0.14em; font-size: 12px; color: #6f7d62; }
+    .line { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+    .line span { flex: 1; font-size: 13px; color: #3c3935; }
+    .line b { display: block; font-weight: 560; }
     .price-note { max-width: 280px; color: #6a655e; font-size: 14.5px; line-height: 1.5; margin: 0 0 18px; }
     .tiers { display: grid; grid-template-columns: 1fr 1.05fr; gap: 28px; align-items: stretch; }
     .tier {
@@ -694,42 +710,51 @@
       </div>
     </section>
 
-    <section class="page" id="pricing">
+    <section class="page fee-page" id="pricing">
       <div class="wrap">
-        <div class="price-head">
-          <div>
-            <span class="label">03 · PRICING</span>
-            <h2>Flat-fee. No retainers.</h2>
-          </div>
-          <p class="price-note">One fee. Blueprint is the packet. Placement is the work. No retainer.</p>
-        </div>
+        <h2>Pricing & Process</h2>
+        <p class="sub">Safe, confidential support designed with care. Choose the path that fits your needs—clear, flat-fee, trauma-informed.</p>
         <div class="tiers">
-          <article class="tier light">
-            <div class="who">TIER 01</div>
-            <h3>The Exit Blueprint</h3>
-            <div class="price">$250 <span>Strategy Only</span></div>
+          <article class="tier">
+            <div class="fee-head">
+              <h3>Exit Blueprint</h3>
+              <div class="price">$250</div>
+            </div>
+            <span class="pill-line">FLAT-FEE · 24–72H DELIVERY</span>
             <ul class="checks">
-              <li><span class="check">✓</span> Cost-of-living audit (real city, real rent)</li>
-              <li><span class="check">✓</span> 30 / 60 / 90-day survival budget</li>
-              <li><span class="check">✓</span> Credit & debt triage — soft pull only</li>
-              <li><span class="check">✓</span> Utility & doc checklist (DV waivers flagged)</li>
+              <li><span class="check">✓</span> private housing pipeline</li>
+              <li><span class="check">✓</span> utilities + DV waivers</li>
+              <li><span class="check">✓</span> movers + storage coordination</li>
+              <li><span class="check">✓</span> doc checklist + credit triage</li>
+              <li><span class="check">✓</span> 24–72h delivery</li>
+              <li><span class="check">✓</span> flat-fee only</li>
             </ul>
-            <div class="note">Best when she can self-execute with a roadmap. You get the packet, not her inbox.</div>
           </article>
-          <article class="tier dark">
-            <span class="most">MOST REQUESTED ✦</span>
-            <div class="who">TIER 02</div>
-            <h3>Rapid Housing Placement</h3>
-            <div class="price">$750 <span>Includes Tier 01+</span></div>
+          <article class="tier pick">
+            <span class="most">MOST REQUESTED</span>
+            <div class="fee-head">
+              <h3>Rapid Housing Placement</h3>
+              <div class="price">$750</div>
+            </div>
+            <p>Includes everything in Blueprint, plus:</p>
             <ul class="checks">
-              <li><span class="check">✓</span> White-glove execution — we do the calls</li>
-              <li><span class="check">✓</span> Utility concierge + DV waiver letters</li>
-              <li><span class="check">✓</span> Housing apps + move coordination</li>
-              <li><span class="check">✓</span> Handoff with stabilized utilities + keys</li>
+              <li><span class="check">•</span> done-for-you placement</li>
+              <li><span class="check">•</span> white-label updates for caseworkers</li>
+              <li><span class="check">•</span> stabilized handoff & follow-up support</li>
+              <li><span class="check">•</span> Signal/Proton referral for secure messaging</li>
+              <li><span class="check">•</span> prioritized coordination & daily updates</li>
             </ul>
-            <div class="note">Best when you need us to carry the 20+ hour grind. We stay invisible until handoff. ✦</div>
-            <button class="btn wide" type="button" data-open-desk="covers">Flat-fee. Zero retainer. <span aria-hidden="true">→</span></button>
           </article>
+        </div>
+        <div class="timeline">
+          <p>PROCESS TIMELINE</p>
+          <div class="line">
+            <span><b>Day 1–3</b>Blueprint</span>
+            <span><b>Housing Search</b></span>
+            <span><b>Waivers Filed</b></span>
+            <span><b>Movers Coordinated</b></span>
+            <span><b>Stabilized Handoff</b></span>
+          </div>
         </div>
       </div>
     </section>
