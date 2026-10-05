@@ -298,6 +298,9 @@
     .line { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
     .line span { flex: 1; font-size: 13px; color: #3c3935; }
     .line b { display: block; font-weight: 560; }
+    .rail { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; color: #6f7d62; }
+    .rail i { width: 36px; height: 36px; border: 1.5px solid #6f7d62; border-radius: 50%; display: grid; place-items: center; font-style: normal; background: #fff; }
+    .rail em { flex: 1; text-align: center; font-style: normal; }
     .price-note { max-width: 280px; color: #6a655e; font-size: 14.5px; line-height: 1.5; margin: 0 0 18px; }
     .tiers { display: grid; grid-template-columns: 1fr 1.05fr; gap: 28px; align-items: stretch; }
     .tier {
@@ -748,6 +751,7 @@
         </div>
         <div class="timeline">
           <p>PROCESS TIMELINE</p>
+          <div class="rail" aria-hidden="true"><i>☰</i><em>→</em><i>⌕</i><em>→</em><i>✎</i><em>→</em><i>▭</i><em>→</em><i>♡</i></div>
           <div class="line">
             <span><b>Day 1–3</b>Blueprint</span>
             <span><b>Housing Search</b></span>
