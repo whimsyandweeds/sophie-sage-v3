@@ -332,7 +332,7 @@
       text-decoration: none;
     }
     .budget-links a { display: inline-block; }
-    .help-list a { margin-left: 6px; white-space: nowrap; }
+    .budget-links a::after, .help-list a::after { content: " ↗"; font-size: 11px; }
     @media (max-width: 800px) { .budget-grid { grid-template-columns: 1fr; } }
     .fee-page h2 { margin: 0 auto 10px; color: #5f6b52; font-family: Fraunces, serif; font-weight: 500; max-width: none; }
     .fee-page .sub { margin: 0 auto 22px; }
