@@ -997,6 +997,7 @@
             <div id="bud-housing-wrap" hidden>
               <h3>Housing</h3>
               <div class="budget-links" id="bud-housing"></div>
+              <div id="bud-utilities"></div>
               <h3>Internet</h3>
               <div class="budget-links" id="bud-internet"></div>
               <div id="bud-storage-wrap" hidden>
@@ -1490,10 +1491,10 @@
         + "<a href=\"https://www.rent.com/zip-" + zip + "-apartments?beds=" + (beds || 1) + "\" target=\"_blank\" rel=\"noopener\">Rent.com</a>"
         + "<a href=\"https://www.apartments.com/" + bedBit + "s/" + zip + "/\" target=\"_blank\" rel=\"noopener\">Apartments</a>"
         + "<a href=\"https://www.affordablehousing.com/\" target=\"_blank\" rel=\"noopener\">Affordable</a>"
-        + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>"
-        + picked.map(function (item) {
-          return "<a href=\"" + item[2] + "\" target=\"_blank\" rel=\"noopener\">" + item[0] + " · " + item[1] + "</a>";
-        }).join("");
+        + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>";
+      document.getElementById("bud-utilities").innerHTML = picked.map(function (item) {
+        return "<h3>" + item[0] + "</h3><div class=\"budget-links\"><a href=\"" + item[2] + "\" target=\"_blank\" rel=\"noopener\">" + item[1] + "</a></div>";
+      }).join("");
       const internetProviders = {
         NV: [["Cox", "https://www.cox.com/"], ["Quantum Fiber", "https://www.quantumfiber.com/"]],
         AZ: [["Cox", "https://www.cox.com/"], ["CenturyLink", "https://www.centurylink.com/"]],
