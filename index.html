@@ -1414,8 +1414,10 @@
       const miles = Number(document.getElementById("bud-miles").value);
       const idx = rentIndex[state] || 1;
       const uidx = utilIndex[state] || 1;
-      const base = [1100, 1450, 1800, 2250, 2700][beds];
-      const rent = base * idx;
+      const base = [750, 950, 1200, 1500, 1800][beds];
+      const low = base * idx * 0.8;
+      const high = base * idx;
+      const rent = low;
       const deposit = rent;
       const petFee = pets ? 350 : 0;
       const petRent = pets ? 40 : 0;
@@ -1432,7 +1434,7 @@
       const mail = 25;
       const monthly = rent + petRent + electric + gas + water + internet + storageFee;
       const once = deposit + petFee + utilDep + boxes + truck + movers + lock + mail;
-      document.getElementById("bud-place").textContent = place + " · planning range";
+      document.getElementById("bud-place").innerHTML = place + " · from " + money(low) + " to " + money(high) + " <a href=\"https://www.zillow.com/homes/" + zip + "_rb/\" target=\"_blank\" rel=\"noopener\">Zillow</a> <a href=\"https://www.rent.com/zip-" + zip + "-apartments\" target=\"_blank\" rel=\"noopener\">Rent.com</a>";
       document.getElementById("bud-once").innerHTML = [
         row("First month rent", money(rent)),
         row("Housing deposit", money(deposit)),
