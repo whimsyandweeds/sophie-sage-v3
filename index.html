@@ -1494,14 +1494,14 @@
         + picked.map(function (item) {
           return "<span class=\"util-row\"><em>" + item[0] + "</em><a href=\"" + item[2] + "\" target=\"_blank\" rel=\"noopener\">" + item[1] + "</a></span>";
         }).join("");
-      const internet = {
+      const internetProviders = {
         NV: [["Cox", "https://www.cox.com/"], ["Quantum Fiber", "https://www.quantumfiber.com/"]],
         AZ: [["Cox", "https://www.cox.com/"], ["CenturyLink", "https://www.centurylink.com/"]],
         CA: [["Xfinity", "https://www.xfinity.com/"], ["AT&T", "https://www.att.com/internet/"]],
         TX: [["Xfinity", "https://www.xfinity.com/"], ["AT&T", "https://www.att.com/internet/"]],
         FL: [["Xfinity", "https://www.xfinity.com/"], ["Spectrum", "https://www.spectrum.com/"]]
       };
-      const nets = internet[state] || [["Internet", "https://www.google.com/search?q=" + encodeURIComponent(place + " internet service")]];
+      const nets = internetProviders[state] || [["Internet", "https://www.google.com/search?q=" + encodeURIComponent(place + " internet service")]];
       document.getElementById("bud-internet").innerHTML = nets.map(function (item) {
         return "<a href=\"" + item[1] + "\" target=\"_blank\" rel=\"noopener\">" + item[0] + "</a>";
       }).join("");
