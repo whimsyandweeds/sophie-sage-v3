@@ -991,8 +991,14 @@
             <h3>Each month</h3>
             <ul id="bud-month"></ul>
             <div id="bud-housing-wrap" hidden>
-              <button class="sheets-toggle" id="housing-toggle" type="button" aria-expanded="false">Housing</button>
-              <div class="budget-links" id="bud-housing" hidden></div>
+              <h3>Housing</h3>
+              <div class="budget-links" id="bud-housing"></div>
+              <h3>Internet</h3>
+              <div class="budget-links" id="bud-internet"></div>
+              <div id="bud-storage-wrap" hidden>
+                <h3>Storage</h3>
+                <div class="budget-links" id="bud-storage"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1484,6 +1490,23 @@
         + picked.map(function (item) {
           return "<span class=\"util-row\"><em>" + item[0] + "</em><a href=\"" + item[2] + "\" target=\"_blank\" rel=\"noopener\">" + item[1] + "</a></span>";
         }).join("");
+      const internet = {
+        NV: [["Cox", "https://www.cox.com/"], ["Quantum Fiber", "https://www.quantumfiber.com/"]],
+        AZ: [["Cox", "https://www.cox.com/"], ["CenturyLink", "https://www.centurylink.com/"]],
+        CA: [["Xfinity", "https://www.xfinity.com/"], ["AT&T", "https://www.att.com/internet/"]],
+        TX: [["Xfinity", "https://www.xfinity.com/"], ["AT&T", "https://www.att.com/internet/"]],
+        FL: [["Xfinity", "https://www.xfinity.com/"], ["Spectrum", "https://www.spectrum.com/"]]
+      };
+      const nets = internet[state] || [["Internet", "https://www.google.com/search?q=" + encodeURIComponent(place + " internet service")]];
+      document.getElementById("bud-internet").innerHTML = nets.map(function (item) {
+        return "<a href=\"" + item[1] + "\" target=\"_blank\" rel=\"noopener\">" + item[0] + "</a>";
+      }).join("");
+      document.getElementById("bud-storage-wrap").hidden = !storage;
+      if (storage) {
+        document.getElementById("bud-storage").innerHTML = ""
+          + "<a href=\"https://www.publicstorage.com/search?q=" + zip + "\" target=\"_blank\" rel=\"noopener\">Public Storage</a>"
+          + "<a href=\"https://www.extraspace.com/storage/search/?query=" + zip + "\" target=\"_blank\" rel=\"noopener\">Extra Space</a>";
+      }
       document.getElementById("bud-once").innerHTML = [
         row("First month rent", money(rent)),
         row("Housing deposit", money(deposit)),
