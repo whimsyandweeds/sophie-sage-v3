@@ -313,7 +313,10 @@
     .zone h3 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.03em; font-weight: 560; }
     .zone p { margin: 0; color: #514c46; line-height: 1.5; font-size: 15px; }
 
-    .budget-page { align-items: flex-start; overflow: auto; }
+    .budget-page { align-items: flex-start; }
+    @media (max-width: 800px) {
+      .budget-page { min-height: auto; scroll-snap-stop: normal; }
+    }
     .budget-page .wrap { padding-bottom: 48px; }
     .budget-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 16px; text-align: left; }
     .budget-card { background: rgba(255,252,248,0.94); border: 1px solid #e4d8c4; border-radius: 18px; padding: 18px; }
@@ -1540,7 +1543,10 @@
       document.getElementById("budget-out").hidden = false;
       document.getElementById("bud-housing-wrap").hidden = false;
       document.getElementById("bud-help-wrap").hidden = false;
-      document.getElementById("budget-out").scrollIntoView({ block: "nearest", inline: "nearest" });
+      const out = document.getElementById("budget-out");
+      document.documentElement.style.scrollSnapType = "none";
+      out.scrollIntoView({ block: "start" });
+      setTimeout(function () { document.documentElement.style.scrollSnapType = "y mandatory"; }, 700);
     });
   addEventListener("scroll", function(){
     if(lock) return;
