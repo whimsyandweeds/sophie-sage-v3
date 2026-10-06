@@ -1492,7 +1492,7 @@
         + "<a href=\"https://www.affordablehousing.com/\" target=\"_blank\" rel=\"noopener\">Affordable</a>"
         + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>"
         + picked.map(function (item) {
-          return "<span class=\"util-row\"><em>" + item[0] + "</em><a href=\"" + item[2] + "\" target=\"_blank\" rel=\"noopener\">" + item[1] + "</a></span>";
+          return "<a href=\"" + item[2] + "\" target=\"_blank\" rel=\"noopener\">" + item[0] + " · " + item[1] + "</a>";
         }).join("");
       const internetProviders = {
         NV: [["Cox", "https://www.cox.com/"], ["Quantum Fiber", "https://www.quantumfiber.com/"]],
