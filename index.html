@@ -287,11 +287,19 @@
       box-shadow: var(--shadow);
       min-height: 280px;
     }
-    .zone, .tier, .refer-card, .budget-card, .how-note { position: relative; overflow: hidden; }
-    .zone::before, .tier::before, .refer-card::before, .budget-card::before, .how-note::before {
+    .zone, .tier, .refer-card, .budget-card, .how-note, .step {
+      position: relative;
+      border: 1px solid #c5d0bc;
+      box-shadow:
+        0 0 0 1px rgba(255, 252, 248, 0.7) inset,
+        0 10px 28px rgba(80, 90, 70, 0.08),
+        0 0 18px rgba(140, 158, 128, 0.18);
+    }
+    .zone::before, .tier::before, .refer-card::before, .budget-card::before, .how-note::before, .step::before {
       content: "";
-      position: absolute; left: 0; right: 0; top: 0; height: 8px;
-      background: url("sage-accent.jpg?v=1") center / cover;
+      position: absolute; left: 10px; right: 10px; top: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(198, 214, 184, 0.9), transparent);
+      pointer-events: none;
     }
     .zone.b { background: rgba(239, 230, 246, 0.92); }
     .zone.c { background: rgba(231, 240, 227, 0.92); }
