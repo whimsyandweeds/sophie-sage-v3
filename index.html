@@ -895,6 +895,7 @@
         </div>
         <div class="exit-row">
           <a class="btn exit-btn" href="#pricing">Get the Exit Plan</a>
+          <a class="btn exit-btn" href="#budget">Build a budget</a>
           <span class="quiet">For trusted referrers only · Inquire anonymously</span>
         </div>
       </div>
@@ -961,7 +962,7 @@
         <h2>Exit budget</h2>
         <p class="sub">A planning range from the zip, not a quote. No name, no street, no case number. The zip stays in this browser.</p>
         <div class="budget-grid">
-          <form class="budget-card" id="budget-form">
+          <form class="budget-card" id="budget-form" action="#budget" onsubmit="return false">
             <label for="bud-zip">Zip code</label>
             <input id="bud-zip" inputmode="numeric" maxlength="5" required placeholder="City zip, not the street" />
             <label for="bud-beds">Bedrooms</label>
@@ -976,7 +977,7 @@
             <select id="bud-storage"><option value="0">No</option><option value="1">Yes, one month</option></select>
             <label for="bud-miles">Move distance</label>
             <select id="bud-miles"><option value="25">25 miles</option><option value="150">50–300 miles</option><option value="600">300+ miles</option></select>
-            <button class="go" type="submit">Build the range</button>
+            <button class="go" id="budget-go" type="button">Build the range</button>
             <p class="budget-note">Estimates use a public cost index for the state. A partner still confirms the unit, the waiver, and the grant.</p>
             <div id="bud-help-wrap" hidden>
               <h3>Help that may apply</h3>
@@ -1421,8 +1422,8 @@
       box.hidden = !box.hidden;
       housingToggle.setAttribute("aria-expanded", String(!box.hidden));
     });
-    document.getElementById("budget-form").addEventListener("submit", async (event) => {
-      event.preventDefault();
+    document.getElementById("budget-go").addEventListener("click", async (event) => {
+      if (event) event.preventDefault();
       const zip = document.getElementById("bud-zip").value.trim();
       let place = "Zip " + zip;
       let state = "US";
@@ -1539,6 +1540,7 @@
       document.getElementById("budget-out").hidden = false;
       document.getElementById("bud-housing-wrap").hidden = false;
       document.getElementById("bud-help-wrap").hidden = false;
+      document.getElementById("budget-out").scrollIntoView({ block: "nearest", inline: "nearest" });
     });
   addEventListener("scroll", function(){
     if(lock) return;
