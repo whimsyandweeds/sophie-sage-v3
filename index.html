@@ -973,7 +973,7 @@
             <label for="bud-storage">Storage</label>
             <select id="bud-storage"><option value="0">No</option><option value="1">Yes, one month</option></select>
             <label for="bud-miles">Move distance</label>
-            <select id="bud-miles"><option value="25">Local, under 50 miles</option><option value="150">In state, 50–300</option><option value="600">Out of area, 300+</option></select>
+            <select id="bud-miles"><option value="25">25 miles</option><option value="150">50–300 miles</option><option value="600">300+ miles</option></select>
             <button class="go" type="submit">Build the range</button>
             <p class="budget-note">Estimates use a public cost index for the state. A partner still confirms the unit, the waiver, and the grant.</p>
           </form>
@@ -1441,8 +1441,9 @@
       const mail = 25;
       const monthly = rent + petRent + electric + gas + water + internet + storageFee;
       const once = deposit + petFee + utilDep + boxes + truck + movers + lock + mail;
+      const moveLabel = miles <= 25 ? "25-mile move" : miles <= 150 ? "50–300 mile move" : "300+ mile move";
       const bedsLabel = beds === 0 ? "studio" : beds + "-bedroom";
-      document.getElementById("bud-place").innerHTML = place + " · from " + money(low) + " to " + money(high)
+      document.getElementById("bud-place").innerHTML = place + " · " + moveLabel + " · from " + money(low) + " to " + money(high)
         + "<span class=\"budget-links\">"
         + "<a href=\"https://www.zillow.com/homes/" + zip + "_rb/\" target=\"_blank\" rel=\"noopener\">Zillow</a>"
         + "<a href=\"https://www.rent.com/zip-" + zip + "-apartments\" target=\"_blank\" rel=\"noopener\">Rent.com</a>"
@@ -1456,8 +1457,8 @@
         row("Pet deposit", pets ? money(petFee) : "None"),
         row("Utility deposits", money(utilDep)),
         row("Boxes and supplies", money(boxes)),
-        row("Truck", money(truck)),
-        row("Movers", money(movers)),
+        row("Truck, " + moveLabel, money(truck)),
+        row("Movers, " + moveLabel, money(movers)),
         row("Lock change and mail hold", money(lock + mail)),
         row("Move-in total", money(once + rent))
       ].join("");
