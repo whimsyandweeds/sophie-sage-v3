@@ -325,7 +325,8 @@
     .budget-out .total { font-weight: 600; }
     .budget-note { font-size: 12px; line-height: 1.45; color: #5e5a55; margin: 10px 0 0; }
     .help-list { margin: 0; padding: 0; list-style: none; }
-    .help-list a { margin-left: 6px; font-size: 12px; color: #5f6b52; white-space: nowrap; }
+    .budget-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .budget-links a { font-size: 12px; color: #5f6b52; border: 1px solid #c5d0bc; border-radius: 999px; padding: 3px 8px; }
     @media (max-width: 800px) { .budget-grid { grid-template-columns: 1fr; } }
     .fee-page h2 { margin: 0 auto 10px; color: #5f6b52; font-family: Fraunces, serif; font-weight: 500; max-width: none; }
     .fee-page .sub { margin: 0 auto 22px; }
@@ -1434,7 +1435,15 @@
       const mail = 25;
       const monthly = rent + petRent + electric + gas + water + internet + storageFee;
       const once = deposit + petFee + utilDep + boxes + truck + movers + lock + mail;
-      document.getElementById("bud-place").innerHTML = place + " · from " + money(low) + " to " + money(high) + " <a href=\"https://www.zillow.com/homes/" + zip + "_rb/\" target=\"_blank\" rel=\"noopener\">Zillow</a> <a href=\"https://www.rent.com/zip-" + zip + "-apartments\" target=\"_blank\" rel=\"noopener\">Rent.com</a>";
+      const bedsLabel = beds === 0 ? "studio" : beds + "-bedroom";
+      document.getElementById("bud-place").innerHTML = place + " · from " + money(low) + " to " + money(high)
+        + "<span class=\"budget-links\">"
+        + "<a href=\"https://www.zillow.com/homes/" + zip + "_rb/\" target=\"_blank\" rel=\"noopener\">Zillow</a>"
+        + "<a href=\"https://www.rent.com/zip-" + zip + "-apartments\" target=\"_blank\" rel=\"noopener\">Rent.com</a>"
+        + "<a href=\"https://www.apartments.com/\" target=\"_blank\" rel=\"noopener\">Apartments</a>"
+        + "<a href=\"https://www.affordablehousing.com/\" target=\"_blank\" rel=\"noopener\">Affordable</a>"
+        + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>"
+        + "</span>";
       document.getElementById("bud-once").innerHTML = [
         row("First month rent", money(rent)),
         row("Housing deposit", money(deposit)),
