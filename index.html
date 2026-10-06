@@ -977,6 +977,10 @@
             <select id="bud-miles"><option value="25">25 miles</option><option value="150">50–300 miles</option><option value="600">300+ miles</option></select>
             <button class="go" type="submit">Build the range</button>
             <p class="budget-note">Estimates use a public cost index for the state. A partner still confirms the unit, the waiver, and the grant.</p>
+            <div id="bud-housing-wrap" hidden>
+              <button class="sheets-toggle" id="housing-toggle" type="button" aria-expanded="false">Housing</button>
+              <div class="budget-links" id="bud-housing" hidden></div>
+            </div>
             <div id="bud-help-wrap" hidden>
               <h3>Help that may apply</h3>
               <ul class="help-list" id="bud-help"></ul>
@@ -1404,6 +1408,11 @@
     const utilIndex = { AK:1.4,HI:1.5,CA:1.15,NY:1.2,TX:1.1,FL:1.15,AZ:1.2,MA:1.25,WA:1.05 };
     function money(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
     function row(label, value) { return "<li><span>" + label + "</span><span>" + value + "</span></li>"; }
+    document.getElementById("housing-toggle").addEventListener("click", () => {
+      const box = document.getElementById("bud-housing");
+      box.hidden = !box.hidden;
+      document.getElementById("housing-toggle").setAttribute("aria-expanded", String(!box.hidden));
+    });
     document.getElementById("budget-form").addEventListener("submit", async (event) => {
       event.preventDefault();
       const zip = document.getElementById("bud-zip").value.trim();
@@ -1446,14 +1455,13 @@
       const once = deposit + petFee + utilDep + boxes + truck + movers + lock + mail;
       const moveLabel = miles <= 25 ? "25-mile move" : miles <= 150 ? "50–300 mile move" : "300+ mile move";
       const bedsLabel = beds === 0 ? "studio" : beds + "-bedroom";
-      document.getElementById("bud-place").innerHTML = place + " · " + moveLabel + " · from " + money(low) + " to " + money(high)
-        + "<span class=\"budget-links\">"
+      document.getElementById("bud-place").textContent = place + " · " + moveLabel + " · from " + money(low) + " to " + money(high);
+      document.getElementById("bud-housing").innerHTML = ""
         + "<a href=\"https://www.zillow.com/homes/" + zip + "_rb/\" target=\"_blank\" rel=\"noopener\">Zillow</a>"
         + "<a href=\"https://www.rent.com/zip-" + zip + "-apartments\" target=\"_blank\" rel=\"noopener\">Rent.com</a>"
         + "<a href=\"https://www.apartments.com/\" target=\"_blank\" rel=\"noopener\">Apartments</a>"
         + "<a href=\"https://www.affordablehousing.com/\" target=\"_blank\" rel=\"noopener\">Affordable</a>"
-        + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>"
-        + "</span>";
+        + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>";
       document.getElementById("bud-once").innerHTML = [
         row("First month rent", money(rent)),
         row("Housing deposit", money(deposit)),
@@ -1484,6 +1492,7 @@
         "<li>211 and the state domestic-violence coalition for a local fund that pays first month and deposit. Confirm before she gives notice. <a href=\"https://www.211.org/\" target=\"_blank\" rel=\"noopener\">211</a></li>"
       ].join("");
       document.getElementById("budget-out").hidden = false;
+      document.getElementById("bud-housing-wrap").hidden = false;
       document.getElementById("bud-help-wrap").hidden = false;
     });
   addEventListener("scroll", function(){
