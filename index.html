@@ -989,6 +989,10 @@
             <ul id="bud-once"></ul>
             <h3>Each month</h3>
             <ul id="bud-month"></ul>
+            <div id="bud-housing-wrap" hidden>
+              <button class="sheets-toggle" id="housing-toggle" type="button" aria-expanded="false">Housing</button>
+              <div class="budget-links" id="bud-housing" hidden></div>
+            </div>
           </div>
         </div>
       </div>
@@ -1404,10 +1408,11 @@
     const utilIndex = { AK:1.4,HI:1.5,CA:1.15,NY:1.2,TX:1.1,FL:1.15,AZ:1.2,MA:1.25,WA:1.05 };
     function money(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
     function row(label, value) { return "<li><span>" + label + "</span><span>" + value + "</span></li>"; }
-    document.getElementById("housing-toggle").addEventListener("click", () => {
+    const housingToggle = document.getElementById("housing-toggle");
+    if (housingToggle) housingToggle.addEventListener("click", () => {
       const box = document.getElementById("bud-housing");
       box.hidden = !box.hidden;
-      document.getElementById("housing-toggle").setAttribute("aria-expanded", String(!box.hidden));
+      housingToggle.setAttribute("aria-expanded", String(!box.hidden));
     });
     document.getElementById("budget-form").addEventListener("submit", async (event) => {
       event.preventDefault();
