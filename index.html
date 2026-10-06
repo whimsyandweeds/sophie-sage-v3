@@ -976,6 +976,11 @@
             <select id="bud-miles"><option value="25">25 miles</option><option value="150">50–300 miles</option><option value="600">300+ miles</option></select>
             <button class="go" type="submit">Build the range</button>
             <p class="budget-note">Estimates use a public cost index for the state. A partner still confirms the unit, the waiver, and the grant.</p>
+            <div id="bud-help-wrap" hidden>
+              <h3>Help that may apply</h3>
+              <ul class="help-list" id="bud-help"></ul>
+              <p class="budget-note">Not legal advice. Not a promise of a waiver or a grant. Sensitive details go to Signal or Proton, not this page.</p>
+            </div>
           </form>
           <div class="budget-card budget-out" id="budget-out" hidden>
             <p id="bud-place"></p>
@@ -983,9 +988,6 @@
             <ul id="bud-once"></ul>
             <h3>Each month</h3>
             <ul id="bud-month"></ul>
-            <h3>Help that may apply</h3>
-            <ul class="help-list" id="bud-help"></ul>
-            <p class="budget-note">Not legal advice. Not a promise of a waiver or a grant. Sensitive details go to Signal or Proton, not this page.</p>
           </div>
         </div>
       </div>
@@ -1481,6 +1483,7 @@
         "<li>211 and the state domestic-violence coalition for a local fund that pays first month and deposit. Confirm before she gives notice. <a href=\"https://www.211.org/\" target=\"_blank\" rel=\"noopener\">211</a></li>"
       ].join("");
       document.getElementById("budget-out").hidden = false;
+      document.getElementById("bud-help-wrap").hidden = false;
     });
   addEventListener("scroll", function(){
     if(lock) return;
