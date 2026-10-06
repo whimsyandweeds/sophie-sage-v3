@@ -1474,10 +1474,11 @@
       const picked = (utilities[state] || [["Electric", "Local electric", "https://www.google.com/search?q=" + encodeURIComponent(place + " electric utility")], ["Gas", "Local gas", "https://www.google.com/search?q=" + encodeURIComponent(place + " gas utility")]]).slice();
       if (waterByCity[city]) picked.push(waterByCity[city]);
       else picked.push(["Water", "Local water", "https://www.google.com/search?q=" + encodeURIComponent(place + " water utility")]);
+      const bedBit = beds === 0 ? "studio" : beds + "-bedroom";
       document.getElementById("bud-housing").innerHTML = ""
-        + "<a href=\"https://www.zillow.com/homes/" + zip + "_rb/\" target=\"_blank\" rel=\"noopener\">Zillow</a>"
-        + "<a href=\"https://www.rent.com/zip-" + zip + "-apartments\" target=\"_blank\" rel=\"noopener\">Rent.com</a>"
-        + "<a href=\"https://www.apartments.com/\" target=\"_blank\" rel=\"noopener\">Apartments</a>"
+        + "<a href=\"https://www.zillow.com/homes/for_rent/" + zip + "_rb/" + (beds ? beds + "-_beds/" : "") + "\" target=\"_blank\" rel=\"noopener\">Zillow rent</a>"
+        + "<a href=\"https://www.rent.com/zip-" + zip + "-apartments?beds=" + (beds || 1) + "\" target=\"_blank\" rel=\"noopener\">Rent.com</a>"
+        + "<a href=\"https://www.apartments.com/" + bedBit + "s/" + zip + "/\" target=\"_blank\" rel=\"noopener\">Apartments</a>"
         + "<a href=\"https://www.affordablehousing.com/\" target=\"_blank\" rel=\"noopener\">Affordable</a>"
         + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>"
         + picked.map(function (item) {
