@@ -325,7 +325,8 @@
     .budget-out .total { font-weight: 600; }
     .budget-note { font-size: 12px; line-height: 1.45; color: #5e5a55; margin: 10px 0 0; }
     .help-list { margin: 0; padding: 0; list-style: none; }
-    .budget-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .util-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .util-row em { font-style: normal; font-size: 11px; letter-spacing: 0.06em; color: #6f7d62; width: 64px; }
     .budget-links a, .help-list a {
       display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
       font-size: 12px; color: #3d4638; background: #e7efe4;
@@ -1419,11 +1420,13 @@
       const zip = document.getElementById("bud-zip").value.trim();
       let place = "Zip " + zip;
       let state = "US";
+      let city = "";
       try {
         const res = await fetch("https://api.zippopotam.us/us/" + zip);
         if (res.ok) {
           const data = await res.json();
-          place = data.places[0]["place name"] + ", " + data.places[0]["state abbreviation"];
+          city = data.places[0]["place name"];
+          place = city + ", " + data.places[0]["state abbreviation"];
           state = data.places[0]["state abbreviation"];
         }
       } catch (e) {}
@@ -1457,12 +1460,29 @@
       const moveLabel = miles <= 25 ? "25-mile move" : miles <= 150 ? "50–300 mile move" : "300+ mile move";
       const bedsLabel = beds === 0 ? "studio" : beds + "-bedroom";
       document.getElementById("bud-place").textContent = place + " · " + moveLabel + " · from " + money(low) + " to " + money(high);
+      const utilities = {
+        NV: [["Electric", "NV Energy", "https://www.nvenergy.com/"], ["Gas", "Southwest Gas", "https://www.swgas.com/"]],
+        AZ: [["Electric", "APS or SRP", "https://www.aps.com/"], ["Gas", "Southwest Gas", "https://www.swgas.com/"]],
+        CA: [["Electric", "PG&E, SCE, or SDG&E", "https://www.pge.com/"], ["Gas", "SoCalGas or PG&E", "https://www.socalgas.com/"]],
+        TX: [["Electric", "Choose a REP", "https://www.powertochoose.org/"], ["Gas", "Local gas company", "https://www.atmosenergy.com/"]],
+        FL: [["Electric", "FPL or Duke", "https://www.fpl.com/"], ["Gas", "TECO Peoples Gas", "https://www.peoplesgas.com/"]],
+        NY: [["Electric", "Con Edison or National Grid", "https://www.coned.com/"], ["Gas", "National Grid", "https://www.nationalgridus.com/"]],
+        WA: [["Electric", "PSE or utility district", "https://www.pse.com/"], ["Gas", "Puget Sound Energy", "https://www.pse.com/"]],
+        CO: [["Electric", "Xcel Energy", "https://www.xcelenergy.com/"], ["Gas", "Xcel Energy", "https://www.xcelenergy.com/"]]
+      };
+      const waterByCity = { Henderson: ["Water", "City of Henderson", "https://www.cityofhenderson.com/residents/utilities"], "Las Vegas": ["Water", "Las Vegas Valley Water", "https://www.lvvwd.com/"] };
+      const picked = (utilities[state] || [["Electric", "Local electric", "https://www.google.com/search?q=" + encodeURIComponent(place + " electric utility")], ["Gas", "Local gas", "https://www.google.com/search?q=" + encodeURIComponent(place + " gas utility")]]).slice();
+      if (waterByCity[city]) picked.push(waterByCity[city]);
+      else picked.push(["Water", "Local water", "https://www.google.com/search?q=" + encodeURIComponent(place + " water utility")]);
       document.getElementById("bud-housing").innerHTML = ""
         + "<a href=\"https://www.zillow.com/homes/" + zip + "_rb/\" target=\"_blank\" rel=\"noopener\">Zillow</a>"
         + "<a href=\"https://www.rent.com/zip-" + zip + "-apartments\" target=\"_blank\" rel=\"noopener\">Rent.com</a>"
         + "<a href=\"https://www.apartments.com/\" target=\"_blank\" rel=\"noopener\">Apartments</a>"
         + "<a href=\"https://www.affordablehousing.com/\" target=\"_blank\" rel=\"noopener\">Affordable</a>"
-        + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>";
+        + "<a href=\"https://resources.hud.gov/\" target=\"_blank\" rel=\"noopener\">HUD</a>"
+        + picked.map(function (item) {
+          return "<span class=\"util-row\"><em>" + item[0] + "</em><a href=\"" + item[2] + "\" target=\"_blank\" rel=\"noopener\">" + item[1] + "</a></span>";
+        }).join("");
       document.getElementById("bud-once").innerHTML = [
         row("First month rent", money(rent)),
         row("Housing deposit", money(deposit)),
