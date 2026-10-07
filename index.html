@@ -771,6 +771,7 @@
       padding: 0 !important;
     }
     .how-note { background: #f6f1e6 !important; }
+.sheet-lock input, #sheet-code { width: 72px; margin-right: 8px; }
 </style>
 </head>
 <body>
@@ -793,6 +794,14 @@
         <a href="#refer">Refer</a>
         <button class="sheets-toggle" id="sheets-toggle" type="button" aria-expanded="false" aria-controls="sheets">Free Information</button>
         <div class="sheets" id="sheets" hidden>
+        <div class="cart-item" id="sheet-lock">
+          <form id="sheet-form">
+            <strong>The rest of the set</strong>
+            <input id="sheet-code" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="Code" aria-label="Sheet code" />
+            <button type="submit">Open</button>
+          </form>
+        </div>
+        <div id="sheet-rest" hidden>
         <div class="cart-item pack">
           <strong>All nine sheets</strong>
           <a href="pdfs/free-information.pdf" download>Download the set</a>
@@ -847,6 +856,7 @@
           <strong>Edgy version</strong>
           <a href="pdfs/edgy-version.pdf" download>Download</a>
           <a href="pdfs/edgy-version.pdf" target="_blank" rel="noopener">Open</a>
+        </div>
         </div>
         </div>
       </div>
@@ -1564,6 +1574,23 @@
     head.classList.add("bob");
     setTimeout(function(){ lock=false; }, 280);
   }, {passive:true});
+})();
+</script>
+
+<script>
+(function(){
+  var rest=document.getElementById("sheet-rest");
+  var lock=document.getElementById("sheet-lock");
+  var form=document.getElementById("sheet-form");
+  if(!rest||!form) return;
+  function open(){ rest.hidden=false; lock.hidden=true; }
+  if(sessionStorage.getItem("ss-sheets")==="1") open();
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var code=(document.getElementById("sheet-code").value||"").trim();
+    if(code==="369"){ sessionStorage.setItem("ss-sheets","1"); open(); }
+    else document.getElementById("sheet-code").value="";
+  });
 })();
 </script>
 </body>
